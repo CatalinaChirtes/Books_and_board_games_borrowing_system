@@ -13,20 +13,13 @@ import java.io.IOException;
 
 public class Main extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+    public void start(Stage stage) throws Exception {
 
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-        stage.setScene((new Scene(root)));
-
-//        Group root = new Group();
-//        Scene scene = new Scene(root, 600, 600, Color.CHOCOLATE);
-
         Image icon = new Image("C:\\Java\\Books\\src\\book.png");
         stage.getIcons().add(icon);
         stage.setTitle("Books in my library");
-//        stage.setScene(scene);
+        stage.setScene((new Scene(root,600,575)));
         stage.show();
     }
 
@@ -34,3 +27,7 @@ public class Main extends Application {
         launch();
     }
 }
+
+//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+//        stage.setScene(scene);

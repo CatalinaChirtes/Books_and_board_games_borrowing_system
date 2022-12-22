@@ -3,6 +3,8 @@ module application.books {
     requires javafx.fxml;
 
     requires org.kordamp.bootstrapfx.core;
+    requires java.sql;
+    requires mysql.connector.j;
 
     opens application.books to javafx.fxml;
     exports application.books;
