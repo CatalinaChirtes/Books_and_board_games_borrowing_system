@@ -15,11 +15,12 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         Image icon = new Image("C:\\Java\\Books\\src\\book.png");
         stage.getIcons().add(icon);
-        stage.setTitle("Books in my library");
-        stage.setScene((new Scene(root,600,575)));
+        stage.setTitle("Login");
+        stage.setScene((new Scene(root,600,400)));
         stage.show();
     }
 
