@@ -30,6 +30,6 @@ public class LoginController implements Initializable {
     }
 
     public void setUserInformation(String username){
-        label_user.setText(username);
+        label_user.setText("Hello, " + username);
     }
 }

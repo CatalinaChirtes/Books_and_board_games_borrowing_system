@@ -33,14 +33,14 @@ public class DBConnection {
         }
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle(title);
-        stage.setScene(new Scene(root,600,400));
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
     public static void logInUser(ActionEvent event, String user, String password) {
         String dbName = "books";
         String userName = "root";
-        String passWord = "1234";
+        String passWord = "";
 
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -60,7 +60,11 @@ public class DBConnection {
                 while(resultSet.next()) {
                     String retrievedPassword = resultSet.getString("password");
                     if (retrievedPassword.equals(password)) {
-                        changeScene(event, "reader.fxml", "Welcome to the library!", user);
+                        if(user.equals("admin")) {
+                            changeScene(event, "admin.fxml", "Welcome to the library dear admin!", user);
+                        } else if(user.equals("reader")){
+                            changeScene(event, "reader.fxml", "Welcome to the library dear reader!", user);
+                        }
                     } else {
                         System.out.println("Passwords didn't match.");
                         Alert alert = new Alert(Alert.AlertType.ERROR);

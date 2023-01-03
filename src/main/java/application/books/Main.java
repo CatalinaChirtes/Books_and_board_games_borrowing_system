@@ -20,7 +20,7 @@ public class Main extends Application {
         Image icon = new Image("C:\\Java\\Books\\src\\book.png");
         stage.getIcons().add(icon);
         stage.setTitle("Login");
-        stage.setScene((new Scene(root,600,400)));
+        stage.setScene((new Scene(root)));
         stage.show();
     }
 
