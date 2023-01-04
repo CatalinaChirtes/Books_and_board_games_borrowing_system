@@ -17,10 +17,17 @@ public class DBConnection {
 
         if(username != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(DBConnection.class.getResource(fxmlFile));
-                root = loader.load();
-                LoginController loginController = loader.getController();
-                loginController.setUserInformation(username);
+                if(username.equals("reader")) {
+                    FXMLLoader loader = new FXMLLoader(DBConnection.class.getResource(fxmlFile));
+                    root = loader.load();
+                    ReaderController readerController = loader.getController();
+                    readerController.setUserInformation(username);
+                } else if(username.equals("admin")) {
+                    FXMLLoader loader = new FXMLLoader(DBConnection.class.getResource(fxmlFile));
+                    root = loader.load();
+                    AdminController adminController = loader.getController();
+                    adminController.setUserInformation(username);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -38,7 +45,7 @@ public class DBConnection {
     }
 
     public static void logInUser(ActionEvent event, String user, String password) {
-        String dbName = "books";
+        String dbName = "bookdatabase";
         String userName = "root";
         String passWord = "";
 

@@ -1,6 +1,7 @@
 module application.books {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.graphics;
 
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;

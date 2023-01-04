@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 
 
-public class LoginController implements Initializable {
+public class AdminController implements Initializable {
     @FXML
     private Button button_logout;
 

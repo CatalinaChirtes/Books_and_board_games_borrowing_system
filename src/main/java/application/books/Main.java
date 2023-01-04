@@ -15,7 +15,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        //Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         Image icon = new Image("C:\\Java\\Books\\src\\book.png");
         stage.getIcons().add(icon);
@@ -28,7 +27,3 @@ public class Main extends Application {
         launch();
     }
 }
-
-//        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-//        stage.setScene(scene);
