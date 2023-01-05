@@ -17,11 +17,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -70,7 +73,7 @@ public class DonateABookController implements Initializable {
     private TextField ratingInput;
 
     @FXML
-    private ComboBox<?> languageType;
+    private ComboBox<String> languageType;
 
     @FXML
     private Button button_addBook;
@@ -101,6 +104,24 @@ public class DonateABookController implements Initializable {
 
     @FXML
     private TableColumn<Book, String> statusTableColumn;
+
+    @FXML
+    private Label titleError;
+
+    @FXML
+    private Label authorError;
+
+    @FXML
+    private Label genreError;
+
+    @FXML
+    private Label pagesError;
+
+    @FXML
+    private Label ratingError;
+
+    @FXML
+    private Label languageError;
 
     ObservableList<Book> bookObservableList = FXCollections.observableArrayList();
     ObservableList<Book> availableBooks = FXCollections.observableArrayList();
@@ -189,10 +210,177 @@ public class DonateABookController implements Initializable {
             }
         });
 
+//        button_addBook.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent actionEvent) {
+//                String title = titleInput.getText();
+//                String author = authorInput.getText();
+//                String genre = genreInput.getText();
+//                Integer pages = Integer.parseInt(pagesInput.getText());
+//                Float rating = Float.parseFloat(ratingInput.getText());
+//                String language = languageType.getSelectionModel().getSelectedItem();
+//
+//                String query = "INSERT INTO books(title, author, genre, pages, Goodreads_rating, language) " +
+//                        "VALUES('" + title + "', '" + author + "', '" + genre + "', " + pages + ", " + rating + ", '" + language + "')";
+//
+//                try (Connection connection = new DatabaseConnection().getDBConnection();
+//                     Statement statement = connection.createStatement()) {
+//                    statement.executeUpdate(query);
+//                } catch (SQLException e) {
+//                    e.printStackTrace();
+//                }
+//                titleInput.clear();
+//                authorInput.clear();
+//                genreInput.clear();
+//                pagesInput.clear();
+//                ratingInput.clear();
+//                languageType.getSelectionModel().clearSelection();
+//
+//                availableBooks.clear();
+//                loadTable();
+//            }
+//        });
+
+        button_addBook.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String title = titleInput.getText();
+                String author = authorInput.getText();
+                String genre = genreInput.getText();
+                Integer pages = 0;
+                Float rating = 0.00f;
+                String language = languageType.getSelectionModel().getSelectedItem();
+
+                // Check if title is empty
+                if (title.trim().isEmpty()) {
+                    // Display error message
+                    titleError.setText("Error: Title cannot be empty");
+                    return;
+                } else {
+                    // Clear error message
+                    titleError.setText("");
+                }
+
+                // Check if title already exists in the database
+                String titleQuery = "SELECT title FROM books WHERE title='" + title + "'";
+                try (Connection connection = new DatabaseConnection().getDBConnection();
+                     Statement statement = connection.createStatement())
+                {
+                    ResultSet resultSet = statement.executeQuery(titleQuery);
+                    if (resultSet.next()) {
+                        // Display error message
+                        titleError.setText("Error: Title already exists");
+                        return;
+                    } else {
+                        // Clear error message
+                        titleError.setText("");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+                // Check if author is empty
+                if (author.trim().isEmpty()) {
+                    // Display error message
+                    authorError.setText("Error: Author cannot be empty");
+                    return;
+                } else {
+                    // Clear error message
+                    authorError.setText("");
+                }
+
+                // Check if genre is empty
+                if (genre.trim().isEmpty()) {
+                    // Display error message
+                    genreError.setText("Error: Genre cannot be empty");
+                    return;
+                } else {
+                    // Clear error message
+                    genreError.setText("");
+                }
+
+                // Check if pages is empty or not a number
+                try {
+                    pages = Integer.parseInt(pagesInput.getText());
+                    pagesError.setText("");
+                } catch (NumberFormatException e) {
+                    // Display error message
+                    pagesError.setText("Error: Pages must be a number");
+                    return;
+                }
+
+                // Check if rating is a number with 2 decimals and within the range of 0 to 5
+                try {
+                    rating = Float.parseFloat(ratingInput.getText());
+                    if (rating < 0 || rating > 5) {
+                        // Display error message
+                        ratingError.setText("Error: Rating must be between 0 and 5");
+                        return;
+                    }
+                    // Convert int rating to float with 2 decimals
+                    rating = (float) Math.round(rating * 100) / 100;
+                    ratingError.setText("");
+                } catch (NumberFormatException e) {
+                    // Display error message
+                    ratingError.setText("Error: Rating must be a number");
+                    return;
+                }
+
+                // Check if language is selected
+                if (language == null) {
+                    // Display error message
+                    languageError.setText("Error: Language must be selected");
+                    return;
+                } else {
+                    // Clear error message
+                    languageError.setText("");
+                }
+
+                String query = "INSERT INTO books(title, author, genre, pages, Goodreads_rating, language) " +
+                        "VALUES('" + title + "', '" + author + "', '" + genre + "', " + pages + ", " + rating + ", '" + language + "')";
+
+                try (Connection connection = new DatabaseConnection().getDBConnection();
+                     Statement statement = connection.createStatement()) {
+                    statement.executeUpdate(query);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                titleInput.clear();
+                authorInput.clear();
+                genreInput.clear();
+                pagesInput.clear();
+                ratingInput.clear();
+                languageType.getSelectionModel().clearSelection();
+
+                availableBooks.clear();
+                loadTable();
+            }
+        });
+
 
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getDBConnection();
 
+        String query = "SELECT * FROM languages";
+        try (Statement statement = connectDB.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            ObservableList<String> languages = FXCollections.observableArrayList();
+            while (resultSet.next()) {
+                String language = resultSet.getString("language");
+                languages.add(language);
+            }
+            languageType.setItems(languages);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        loadTable();
+    }
+
+    public void loadTable() {
+
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectDB = connection.getDBConnection();
         String bookViewQuery = "SELECT book_id, title, author, genre, pages, Goodreads_rating, language, status FROM books";
 
         try {

@@ -3,10 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.books.BorrowABookController">
@@ -74,7 +76,48 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="353.0" layoutY="213.0" text="Borrow A Book!" />
+            <Label layoutX="60.0" layoutY="60.0" text="Borrow A Book">
+               <font>
+                  <Font name="SansSerif Regular" size="24.0" />
+               </font></Label>
+            <TextField layoutX="60.0" layoutY="106.0" prefHeight="30.0" prefWidth="600.0" promptText="Search for a book" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3; -fx-background-radius: 15; -fx-border-radius: 15;">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+            </TextField>
+            <Label layoutX="60.0" layoutY="160.0" text="Title: ">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="60.0" layoutY="190.0" text="Author:">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="60.0" layoutY="220.0" text="Genre:">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="60.0" layoutY="250.0" text="Pages:">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="60.0" layoutY="280.0" text="Goodreads Rating:">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="60.0" layoutY="310.0" text="Language:">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+            </Label>
+            <Line endX="500.0" layoutX="160.0" layoutY="180.0" startX="-100.0" strokeWidth="0.3" />
+            <Line endX="500.0" layoutX="160.0" layoutY="210.0" startX="-100.0" strokeWidth="0.3" />
+            <Line endX="500.0" layoutX="160.0" layoutY="240.0" startX="-100.0" strokeWidth="0.3" />
          </children></AnchorPane>
     </center>
 </BorderPane>

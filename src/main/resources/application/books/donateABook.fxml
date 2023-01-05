@@ -160,6 +160,36 @@
                         <Font name="SansSerif Bold" size="14.0" />
                      </font>
                   </Button>
+                  <Label fx:id="titleError" layoutX="80.0" layoutY="80.0" prefHeight="16.0" prefWidth="344.0" textFill="#cd0303">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="genreError" layoutX="90.0" layoutY="140.0" prefHeight="16.0" prefWidth="335.0" textFill="#cd0303">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="authorError" layoutX="560.0" layoutY="80.0" prefHeight="16.0" prefWidth="344.0" textFill="#cd0303">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="ratingError" layoutX="370.0" layoutY="200.0" prefHeight="16.0" prefWidth="538.0" textFill="#cd0303">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="languageError" layoutX="585.0" layoutY="140.0" prefHeight="16.0" prefWidth="324.0" textFill="#cd0303">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="pagesError" layoutX="30.0" layoutY="257.0" prefHeight="16.0" prefWidth="399.0" textFill="#cd0303">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                  </Label>
                </children></AnchorPane>
                 </children></AnchorPane>
     </center>
