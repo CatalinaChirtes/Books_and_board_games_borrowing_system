@@ -3,11 +3,10 @@ package application.books;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class DatabaseConnection {
-
+public class DBConnLanguage {
     public Connection connection;
-    public Connection getDBConnection() {
-        String dbName = "bookdatabase";
+    public Connection getDBLanguageConnection() {
+        String dbName = "languages";
         String userName = "root";
         String passWord = "";
         try {

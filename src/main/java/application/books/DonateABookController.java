@@ -27,7 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class ReaderController implements Initializable {
+public class DonateABookController implements Initializable {
 
     private Stage stage;
     private Scene scene;
@@ -55,6 +55,27 @@ public class ReaderController implements Initializable {
     private Label label_user;
 
     @FXML
+    private TextField titleInput;
+
+    @FXML
+    private TextField authorInput;
+
+    @FXML
+    private TextField genreInput;
+
+    @FXML
+    private TextField pagesInput;
+
+    @FXML
+    private TextField ratingInput;
+
+    @FXML
+    private ComboBox<?> languageType;
+
+    @FXML
+    private Button button_addBook;
+
+    @FXML
     private TableView<Book> availableBooksTableView;
 
     @FXML
@@ -80,9 +101,6 @@ public class ReaderController implements Initializable {
 
     @FXML
     private TableColumn<Book, String> statusTableColumn;
-
-    @FXML
-    private TextField keywordTextField;
 
     ObservableList<Book> bookObservableList = FXCollections.observableArrayList();
     ObservableList<Book> availableBooks = FXCollections.observableArrayList();
@@ -213,29 +231,6 @@ public class ReaderController implements Initializable {
 
 
             FilteredList<Book> filteredData = new FilteredList<>(availableBooks, b -> true);
-
-            keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-                filteredData.setPredicate(Book -> {
-                    if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
-                        return true;
-                    }
-
-                    String searchKeyword = newValue.toLowerCase();
-
-                    if (Book.getTitle().toLowerCase().indexOf(searchKeyword) > -1) {
-                        return true;
-                    } else if (Book.getAuthor().toLowerCase().indexOf(searchKeyword) > -1) {
-                        return true;
-                    } else if (Book.getGenre().toLowerCase().indexOf(searchKeyword) > -1) {
-                        return true;
-                    } else if (Book.getLanguage().toLowerCase().indexOf(searchKeyword) > -1) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-
-                });
-            });
 
             SortedList<Book> sortedData = new SortedList<>(filteredData);
 

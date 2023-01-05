@@ -21,7 +21,7 @@
                   <Font name="SansSerif Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutY="330.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Donate a book" textFill="WHITE">
+            <Button fx:id="switchToDonateABook" layoutY="330.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Donate a book" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="14.0" />
                </font>
@@ -29,7 +29,7 @@
                   <Insets left="-32.0" />
                </padding>
             </Button>
-            <Button layoutY="370.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Return a book" textFill="WHITE">
+            <Button fx:id="switchToReturnABook" layoutY="370.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Return a book" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="14.0" />
                </font>
@@ -63,7 +63,7 @@
                   <Font name="SansSerif Bold" size="24.0" />
                </font>
             </Label>
-            <Button layoutY="290.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Borrow a book" textFill="WHITE">
+            <Button fx:id="switchToBorrowABook" layoutY="290.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Borrow a book" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="14.0" />
                </font>

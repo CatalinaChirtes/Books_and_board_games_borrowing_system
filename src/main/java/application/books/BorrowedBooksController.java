@@ -38,6 +38,15 @@ public class BorrowedBooksController implements Initializable{
     private Button switchToBorrowedBooks;
 
     @FXML
+    private Button switchToBorrowABook;
+
+    @FXML
+    private Button switchToDonateABook;
+
+    @FXML
+    private Button switchToReturnABook;
+
+    @FXML
     private Button button_logout;
 
     @FXML
@@ -45,9 +54,6 @@ public class BorrowedBooksController implements Initializable{
 
     @FXML
     private TableView<Book> borrowedBooksTableView;
-
-//    @FXML
-//    private TableView<Book> borrowedBooksTableView;
 
     @FXML
     private TableColumn<Book, Integer> bookIDTableColumn;
@@ -78,7 +84,6 @@ public class BorrowedBooksController implements Initializable{
 
     ObservableList<Book> bookObservableList = FXCollections.observableArrayList();
     ObservableList<Book> borrowedBooks = FXCollections.observableArrayList();
-//    ObservableList<Book> borrowedBooks = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -109,6 +114,51 @@ public class BorrowedBooksController implements Initializable{
             public void handle(ActionEvent event) {
                 try {
                     root = FXMLLoader.load(getClass().getResource("borrowedBooks.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToBorrowABook.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("borrowABook.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToDonateABook.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("donateABook.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToReturnABook.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("returnABook.fxml"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -150,7 +200,7 @@ public class BorrowedBooksController implements Initializable{
             ratingTableColumn.setCellValueFactory(new PropertyValueFactory<>("Goodreads_rating"));
             languageTableColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
 
-            // available books
+            // borrowed books
 
             for (Book book : bookObservableList) {
                 if (book.getStatus().equalsIgnoreCase("borrowed")) {
@@ -190,46 +240,6 @@ public class BorrowedBooksController implements Initializable{
             sortedData.comparatorProperty().bind(borrowedBooksTableView.comparatorProperty());
 
             borrowedBooksTableView.setItems(sortedData);
-
-            // borrowed books
-
-//            for (Book book : bookObservableList) {
-//                if (book.getStatus().equalsIgnoreCase("borrowed")) {
-//                    borrowedBooks.add(book);
-//                }
-//            }
-//            borrowedBooksTableView.setItems(borrowedBooks);
-
-//            FilteredList<Book> filteredData2 = new FilteredList<>(borrowedBooks, b -> true);
-//
-//            keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-//                filteredData2.setPredicate(Book -> {
-//                    if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
-//                        return true;
-//                    }
-//
-//                    String searchKeyword = newValue.toLowerCase();
-//
-//                    if (Book.getTitle().toLowerCase().indexOf(searchKeyword) > -1) {
-//                        return true;
-//                    } else if (Book.getAuthor().toLowerCase().indexOf(searchKeyword) > -1) {
-//                        return true;
-//                    } else if (Book.getGenre().toLowerCase().indexOf(searchKeyword) > -1) {
-//                        return true;
-//                    } else if (Book.getLanguage().toLowerCase().indexOf(searchKeyword) > -1) {
-//                        return true;
-//                    } else {
-//                        return false;
-//                    }
-//
-//                });
-//            });
-//
-//            SortedList<Book> sortedData2 = new SortedList<>(filteredData2);
-//
-//            sortedData2.comparatorProperty().bind(borrowedBooksTableView.comparatorProperty());
-//
-//            borrowedBooksTableView.setItems(sortedData2);
 
         } catch (SQLException e) {
             Logger.getLogger(ReaderController.class.getName()).log(Level.SEVERE, null, e);
