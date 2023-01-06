@@ -314,15 +314,16 @@ public class DonateABookController implements Initializable {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                titleInput.clear();
-                authorInput.clear();
-                genreInput.clear();
-                pagesInput.clear();
-                ratingInput.clear();
-                languageType.getSelectionModel().clearSelection();
 
-                availableBooks.clear();
-                loadTable();
+                try {
+                    root = FXMLLoader.load(getClass().getResource("donateABook.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
             }
         });
 

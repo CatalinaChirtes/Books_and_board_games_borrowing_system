@@ -211,17 +211,15 @@ public class BorrowABookController implements Initializable {
                         e.printStackTrace();
                     }
 
-                    // clear input fields
-                    titleInput.clear();
-                    authorInput.clear();
-                    genreInput.clear();
-                    pagesInput.clear();
-                    ratingInput.clear();
-                    languageInput.clear();
-
-                    // refresh table view
-                    availableBooks.clear();
-                    loadTable();
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("borrowABook.fxml"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
                 }
             }
         });

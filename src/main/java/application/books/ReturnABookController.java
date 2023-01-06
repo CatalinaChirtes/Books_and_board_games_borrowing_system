@@ -211,40 +211,19 @@ public class ReturnABookController implements Initializable {
                         e.printStackTrace();
                     }
 
-                    // clear input fields
-                    titleInput.clear();
-                    authorInput.clear();
-                    genreInput.clear();
-                    pagesInput.clear();
-                    ratingInput.clear();
-                    languageInput.clear();
-
-                    // refresh table view
-                    borrowedBooks.clear();
-                    loadTable();
-                    borrowedBooksTableView.setItems(borrowedBooks);
-
-//                    Task<Void> task = new Task<Void>() {
-//                        @Override
-//                        protected Void call() throws Exception {
-//                            // load the updated data into the borrowedBooks list
-//                            loadTable();
-//                            return null;
-//                        }
-//                    };
-//
-//                    task.setOnSucceeded(e -> {
-//                        // update the table view with the new data in the borrowedBooks list
-//                        borrowedBooksTableView.setItems(borrowedBooks);
-//                    });
-//
-//                    new Thread(task).start();
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("returnABook.fxml"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
                 }
             }
         });
-        borrowedBooks.clear();
         loadTable();
-        borrowedBooksTableView.setItems(borrowedBooks);
     }
 
     public void loadTable(){
