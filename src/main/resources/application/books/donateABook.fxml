@@ -104,7 +104,7 @@
                         <Font name="SansSerif Regular" size="14.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="label_user1" layoutX="30.0" layoutY="30.0" opacity="0.6" text="Please enter the details about the book you want to donate:">
+                  <Label fx:id="label_user1" layoutX="30.0" layoutY="30.0" text="Please enter the details about the book you want to donate:">
                      <font>
                         <Font name="SansSerif Bold" size="24.0" />
                      </font>

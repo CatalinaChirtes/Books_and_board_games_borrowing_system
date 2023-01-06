@@ -22,6 +22,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -198,6 +199,21 @@ public class BorrowedBooksController implements Initializable{
             genreTableColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
             pagesTableColumn.setCellValueFactory(new PropertyValueFactory<>("pages"));
             ratingTableColumn.setCellValueFactory(new PropertyValueFactory<>("Goodreads_rating"));
+            ratingTableColumn.setCellFactory(column -> {
+                TableCell<Book, Float> cell = new TableCell<>() {
+                    @Override
+                    protected void updateItem(Float item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setText(null);
+                        } else {
+                            DecimalFormat df = new DecimalFormat("#.00");
+                            setText(df.format(item));
+                        }
+                    }
+                };
+                return cell;
+            });
             languageTableColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
 
             // borrowed books

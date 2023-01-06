@@ -210,37 +210,6 @@ public class DonateABookController implements Initializable {
             }
         });
 
-//        button_addBook.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent actionEvent) {
-//                String title = titleInput.getText();
-//                String author = authorInput.getText();
-//                String genre = genreInput.getText();
-//                Integer pages = Integer.parseInt(pagesInput.getText());
-//                Float rating = Float.parseFloat(ratingInput.getText());
-//                String language = languageType.getSelectionModel().getSelectedItem();
-//
-//                String query = "INSERT INTO books(title, author, genre, pages, Goodreads_rating, language) " +
-//                        "VALUES('" + title + "', '" + author + "', '" + genre + "', " + pages + ", " + rating + ", '" + language + "')";
-//
-//                try (Connection connection = new DatabaseConnection().getDBConnection();
-//                     Statement statement = connection.createStatement()) {
-//                    statement.executeUpdate(query);
-//                } catch (SQLException e) {
-//                    e.printStackTrace();
-//                }
-//                titleInput.clear();
-//                authorInput.clear();
-//                genreInput.clear();
-//                pagesInput.clear();
-//                ratingInput.clear();
-//                languageType.getSelectionModel().clearSelection();
-//
-//                availableBooks.clear();
-//                loadTable();
-//            }
-//        });
-
         button_addBook.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -312,9 +281,9 @@ public class DonateABookController implements Initializable {
                 // Check if rating is a number with 2 decimals and within the range of 0 to 5
                 try {
                     rating = Float.parseFloat(ratingInput.getText());
-                    if (rating < 0 || rating > 5) {
+                    if (rating < 1 || rating > 5) {
                         // Display error message
-                        ratingError.setText("Error: Rating must be between 0 and 5");
+                        ratingError.setText("Error: Rating must be between 1 and 5");
                         return;
                     }
                     // Convert int rating to float with 2 decimals
@@ -406,6 +375,21 @@ public class DonateABookController implements Initializable {
             genreTableColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
             pagesTableColumn.setCellValueFactory(new PropertyValueFactory<>("pages"));
             ratingTableColumn.setCellValueFactory(new PropertyValueFactory<>("Goodreads_rating"));
+            ratingTableColumn.setCellFactory(column -> {
+                TableCell<Book, Float> cell = new TableCell<>() {
+                    @Override
+                    protected void updateItem(Float item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setText(null);
+                        } else {
+                            DecimalFormat df = new DecimalFormat("#.00");
+                            setText(df.format(item));
+                        }
+                    }
+                };
+                return cell;
+            });
             languageTableColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
 
             // available books
