@@ -17,16 +17,16 @@ public class DBConnection {
 
         if(username != null) {
             try {
-                if(username.equals("reader")) {
-                    FXMLLoader loader = new FXMLLoader(DBConnection.class.getResource(fxmlFile));
-                    root = loader.load();
-                    ReaderController readerController = loader.getController();
-                    readerController.setUserInformation(username);
-                } else if(username.equals("admin")) {
+                if(username.equals("admin")) {
                     FXMLLoader loader = new FXMLLoader(DBConnection.class.getResource(fxmlFile));
                     root = loader.load();
                     AdminController adminController = loader.getController();
                     adminController.setUserInformation(username);
+                } else {
+                    FXMLLoader loader = new FXMLLoader(DBConnection.class.getResource(fxmlFile));
+                    root = loader.load();
+                    ReaderController readerController = loader.getController();
+                    readerController.setUserInformation(username);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

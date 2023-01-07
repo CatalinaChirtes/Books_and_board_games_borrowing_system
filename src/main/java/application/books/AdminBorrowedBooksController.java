@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AdminController implements Initializable {
+public class AdminBorrowedBooksController implements Initializable {
 
     private Stage stage;
     private Scene scene;
@@ -55,7 +55,7 @@ public class AdminController implements Initializable {
     private Label label_user;
 
     @FXML
-    private TableView<Book> availableBooksTableView;
+    private TableView<Book> borrowedBooksTableView;
 
     @FXML
     private TableColumn<Book, Integer> bookIDTableColumn;
@@ -85,7 +85,7 @@ public class AdminController implements Initializable {
     private TextField keywordTextField;
 
     ObservableList<Book> bookObservableList = FXCollections.observableArrayList();
-    ObservableList<Book> availableBooks = FXCollections.observableArrayList();
+    ObservableList<Book> borrowedBooks = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -216,17 +216,17 @@ public class AdminController implements Initializable {
             });
             languageTableColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
 
-            // available books
+            // borrowed books
 
             for (Book book : bookObservableList) {
-                if (book.getStatus().equalsIgnoreCase("available")) {
-                    availableBooks.add(book);
+                if (book.getStatus().equalsIgnoreCase("borrowed")) {
+                    borrowedBooks.add(book);
                 }
             }
-            availableBooksTableView.setItems(availableBooks);
+            borrowedBooksTableView.setItems(borrowedBooks);
 
 
-            FilteredList<Book> filteredData = new FilteredList<>(availableBooks, b -> true);
+            FilteredList<Book> filteredData = new FilteredList<>(borrowedBooks, b -> true);
 
             keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
                 filteredData.setPredicate(Book -> {
@@ -253,9 +253,9 @@ public class AdminController implements Initializable {
 
             SortedList<Book> sortedData = new SortedList<>(filteredData);
 
-            sortedData.comparatorProperty().bind(availableBooksTableView.comparatorProperty());
+            sortedData.comparatorProperty().bind(borrowedBooksTableView.comparatorProperty());
 
-            availableBooksTableView.setItems(sortedData);
+            borrowedBooksTableView.setItems(sortedData);
 
         } catch (SQLException e) {
             Logger.getLogger(ReaderController.class.getName()).log(Level.SEVERE, null, e);

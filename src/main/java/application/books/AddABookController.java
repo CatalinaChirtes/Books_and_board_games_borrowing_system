@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DonateABookController implements Initializable {
+public class AddABookController implements Initializable {
 
     private Stage stage;
     private Scene scene;
@@ -40,13 +40,13 @@ public class DonateABookController implements Initializable {
     private Button switchToBorrowedBooks;
 
     @FXML
-    private Button switchToBorrowABook;
+    private Button switchToAddABook;
 
     @FXML
-    private Button switchToDonateABook;
+    private Button switchToRemoveABook;
 
     @FXML
-    private Button switchToReturnABook;
+    private Button switchToAddUser;
 
     @FXML
     private Button button_logout;
@@ -136,7 +136,7 @@ public class DonateABookController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    root = FXMLLoader.load(getClass().getResource("reader.fxml"));
+                    root = FXMLLoader.load(getClass().getResource("admin.fxml"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -151,7 +151,7 @@ public class DonateABookController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    root = FXMLLoader.load(getClass().getResource("borrowedBooks.fxml"));
+                    root = FXMLLoader.load(getClass().getResource("adminBorrowedBooks.fxml"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -162,11 +162,11 @@ public class DonateABookController implements Initializable {
             }
         });
 
-        switchToBorrowABook.setOnAction(new EventHandler<ActionEvent>() {
+        switchToAddABook.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    root = FXMLLoader.load(getClass().getResource("borrowABook.fxml"));
+                    root = FXMLLoader.load(getClass().getResource("addABook.fxml"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -177,11 +177,11 @@ public class DonateABookController implements Initializable {
             }
         });
 
-        switchToDonateABook.setOnAction(new EventHandler<ActionEvent>() {
+        switchToRemoveABook.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    root = FXMLLoader.load(getClass().getResource("donateABook.fxml"));
+                    root = FXMLLoader.load(getClass().getResource("removeABook.fxml"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -192,11 +192,11 @@ public class DonateABookController implements Initializable {
             }
         });
 
-        switchToReturnABook.setOnAction(new EventHandler<ActionEvent>() {
+        switchToAddUser.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    root = FXMLLoader.load(getClass().getResource("returnABook.fxml"));
+                    root = FXMLLoader.load(getClass().getResource("addANewUser.fxml"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -313,7 +313,7 @@ public class DonateABookController implements Initializable {
                 }
 
                 try {
-                    root = FXMLLoader.load(getClass().getResource("donateABook.fxml"));
+                    root = FXMLLoader.load(getClass().getResource("addABook.fxml"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

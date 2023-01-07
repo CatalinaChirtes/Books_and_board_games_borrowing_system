@@ -160,7 +160,7 @@
                             </font>
                         </TextField>
                     </children></AnchorPane>
-                <Label fx:id="label_user1" layoutX="30.0" layoutY="30.0" text="Please search the title of the book you want to return:">
+                <Label fx:id="label_user1" layoutX="30.0" layoutY="30.0" text="Please select the title of the book you want to return:">
                     <font>
                         <Font name="SansSerif Bold" size="24.0" />
                     </font>

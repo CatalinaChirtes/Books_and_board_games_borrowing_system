@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,7 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.books.BorrowABookController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.books.AddABookController">
     <left>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #0c0c0c;" BorderPane.alignment="CENTER">
             <children>
@@ -21,20 +22,20 @@
                         <Font name="SansSerif Bold" size="14.0" />
                     </font>
                 </Button>
-                <Button fx:id="switchToDonateABook" layoutY="330.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Donate a book" textFill="WHITE">
+                <Button fx:id="switchToRemoveABook" layoutY="330.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Remove a book" textFill="WHITE">
                     <font>
                         <Font name="SansSerif Bold" size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="-32.0" />
+                        <Insets left="-26.0" />
                     </padding>
                 </Button>
-                <Button fx:id="switchToReturnABook" layoutY="370.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Return a book" textFill="WHITE">
+                <Button fx:id="switchToAddUser" layoutY="370.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Add a new user" textFill="WHITE">
                     <font>
                         <Font name="SansSerif Bold" size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="-34.0" />
+                        <Insets left="-27.0" />
                     </padding>
                 </Button>
                 <Button fx:id="switchToBorrowedBooks" layoutY="250.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Borrowed books" textFill="WHITE">
@@ -58,17 +59,17 @@
                         <Image url="@book.jpg" />
                     </image>
                 </ImageView>
-                <Label fx:id="label_user" layoutX="27.0" layoutY="73.0" text="Hello, reader" textFill="WHITE">
+                <Label fx:id="label_user" layoutX="27.0" layoutY="73.0" text="Hello, admin" textFill="WHITE">
                     <font>
                         <Font name="SansSerif Bold" size="24.0" />
                     </font>
                 </Label>
-                <Button fx:id="switchToBorrowABook" layoutY="290.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: #22292B;" text="Borrow a book" textFill="WHITE">
+                <Button fx:id="switchToAddABook" layoutY="290.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: #22292B;" text="Add a book" textFill="WHITE">
                     <font>
                         <Font name="SansSerif Bold" size="14.0" />
                     </font>
                     <padding>
-                        <Insets left="-29.0" />
+                        <Insets left="-52.0" />
                     </padding>
                 </Button>
             </children>
@@ -80,7 +81,7 @@
 
         <AnchorPane prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <children>
-                <TableView fx:id="availableBooksTableView" layoutX="30.0" layoutY="120.0" prefHeight="290.0" prefWidth="940.0">
+                <TableView fx:id="availableBooksTableView" layoutX="30.0" layoutY="360.0" prefHeight="310.0" prefWidth="940.0">
                     <columns>
                         <TableColumn fx:id="bookIDTableColumn" prefWidth="38.0" text="ID" />
                         <TableColumn fx:id="titleTableColumn" prefWidth="284.0" text="Title" />
@@ -91,80 +92,105 @@
                         <TableColumn fx:id="languageTableColumn" prefWidth="119.0" text="Language" />
                     </columns>
                 </TableView>
-                <TextField fx:id="keywordTextField" layoutX="30.0" layoutY="80.0" prefHeight="30.0" prefWidth="940.0" promptText="Search keyword" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: black; -fx-border-width: 0.3; -fx-background-color: white;" />
-                <AnchorPane layoutX="30.0" layoutY="440.0" prefHeight="224.0" prefWidth="940.0" style="-fx-background-color: rgba(236,210,159,255);">
+                <AnchorPane layoutX="30.0" layoutY="30.0" prefHeight="300.0" prefWidth="940.0" style="-fx-background-color: rgba(236,210,159,255);">
                     <children>
-                        <Label layoutX="30.0" layoutY="25.0" text="Title">
+                        <Label layoutX="30.0" layoutY="80.0" text="Title">
                             <font>
                                 <Font name="SansSerif Regular" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="titleInput" layoutX="30.0" layoutY="45.0" prefHeight="30.0" prefWidth="400.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
+                        <TextField fx:id="titleInput" layoutX="30.0" layoutY="100.0" prefHeight="30.0" prefWidth="400.0" promptText="Enter the title of the book" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
                             <font>
                                 <Font name="SansSerif Regular" size="14.0" />
                             </font>
                         </TextField>
-                        <Label layoutX="510.0" layoutY="25.0" text="Author">
+                        <Label fx:id="label_user1" layoutX="30.0" layoutY="30.0" text="Please enter the details about the book you want to add:">
+                            <font>
+                                <Font name="SansSerif Bold" size="24.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="510.0" layoutY="80.0" text="Author">
                             <font>
                                 <Font name="SansSerif Regular" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="authorInput" layoutX="510.0" layoutY="45.0" prefHeight="30.0" prefWidth="400.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
+                        <TextField fx:id="authorInput" layoutX="510.0" layoutY="100.0" prefHeight="30.0" prefWidth="400.0" promptText="Enter the name of the author" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
                             <font>
                                 <Font name="SansSerif Regular" size="14.0" />
                             </font>
                         </TextField>
-                        <Label layoutX="30.0" layoutY="85.0" text="Genre">
+                        <Label layoutX="30.0" layoutY="140.0" text="Genre">
                             <font>
                                 <Font name="SansSerif Regular" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="genreInput" layoutX="30.0" layoutY="105.0" prefHeight="30.0" prefWidth="400.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
+                        <TextField fx:id="genreInput" layoutX="30.0" layoutY="160.0" prefHeight="30.0" prefWidth="400.0" promptText="Enter the genre of the book" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
                             <font>
                                 <Font name="SansSerif Regular" size="14.0" />
                             </font>
                         </TextField>
-                        <Label layoutX="30.0" layoutY="145.0" text="Pages">
+                        <Label layoutX="30.0" layoutY="200.0" text="Pages">
                             <font>
                                 <Font name="SansSerif Regular" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="pagesInput" layoutX="30.0" layoutY="165.0" prefHeight="30.0" prefWidth="185.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
+                        <TextField fx:id="pagesInput" layoutX="30.0" layoutY="220.0" prefHeight="30.0" prefWidth="185.0" promptText="Enter the number of pages" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
                             <font>
                                 <Font name="SansSerif Regular" size="14.0" />
                             </font>
                         </TextField>
-                        <Label layoutX="245.0" layoutY="145.0" text="Goodreads Rating">
+                        <Label layoutX="245.0" layoutY="200.0" text="Goodreads Rating">
                             <font>
                                 <Font name="SansSerif Regular" size="14.0" />
                             </font>
                         </Label>
-                        <TextField fx:id="ratingInput" layoutX="245.0" layoutY="165.0" prefHeight="30.0" prefWidth="185.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
+                        <TextField fx:id="ratingInput" layoutX="245.0" layoutY="220.0" prefHeight="30.0" prefWidth="185.0" promptText="Enter the rating" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
                             <font>
                                 <Font name="SansSerif Regular" size="14.0" />
                             </font>
                         </TextField>
-                        <Label layoutX="510.0" layoutY="85.0" text="Language">
+                        <Label layoutX="510.0" layoutY="140.0" text="Language">
                             <font>
                                 <Font name="SansSerif Regular" size="14.0" />
                             </font>
                         </Label>
-                        <Button fx:id="button_borrowBook" layoutX="510.0" layoutY="165.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="400.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #0c0c0c;" text="Borrow Book" textFill="WHITE">
+                        <ComboBox fx:id="languageType" layoutX="510.0" layoutY="160.0" prefHeight="30.0" prefWidth="400.0" promptText="Select the language" style="-fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3; -fx-background-radius: 15; -fx-border-radius: 15;" />
+                        <Button fx:id="button_addBook" layoutX="510.0" layoutY="220.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="400.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #0c0c0c;" text="Add Book" textFill="WHITE">
                             <font>
                                 <Font name="SansSerif Bold" size="14.0" />
                             </font>
                         </Button>
-                  <TextField fx:id="languageInput" layoutX="510.0" layoutY="105.0" prefHeight="30.0" prefWidth="400.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
-                     <font>
-                        <Font name="SansSerif Regular" size="14.0" />
-                     </font>
-                  </TextField>
+                        <Label fx:id="titleError" layoutX="80.0" layoutY="80.0" prefHeight="16.0" prefWidth="344.0" textFill="#cd0303">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="genreError" layoutX="90.0" layoutY="140.0" prefHeight="16.0" prefWidth="335.0" textFill="#cd0303">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="authorError" layoutX="560.0" layoutY="80.0" prefHeight="16.0" prefWidth="344.0" textFill="#cd0303">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="ratingError" layoutX="370.0" layoutY="200.0" prefHeight="16.0" prefWidth="538.0" textFill="#cd0303">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="languageError" layoutX="585.0" layoutY="140.0" prefHeight="16.0" prefWidth="324.0" textFill="#cd0303">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="pagesError" layoutX="30.0" layoutY="257.0" prefHeight="16.0" prefWidth="399.0" textFill="#cd0303">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
                     </children></AnchorPane>
-                  <Label fx:id="label_user1" layoutX="30.0" layoutY="30.0" text="Please select the title of the book you want to borrow:">
-                      <font>
-                          <Font name="SansSerif Bold" size="24.0" />
-                      </font>
-                  </Label>
             </children></AnchorPane>
     </center>
 </BorderPane>
