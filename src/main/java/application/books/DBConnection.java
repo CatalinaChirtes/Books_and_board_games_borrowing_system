@@ -59,9 +59,9 @@ public class DBConnection {
             resultSet = preparedStatement.executeQuery();
 
             if(!resultSet.isBeforeFirst()) {
-                System.out.println("User not found in the database.");
+                //System.out.println("User not found in the database.");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("The provided credentials are incorrect.");
+                alert.setContentText("The provided credentials are incorrect. User not found in the database.");
                 alert.show();
             } else {
                 while(resultSet.next()) {
@@ -69,13 +69,13 @@ public class DBConnection {
                     if (retrievedPassword.equals(password)) {
                         if(user.equals("admin")) {
                             changeScene(event, "admin.fxml", "Welcome to the library dear admin!", user);
-                        } else if(user.equals("reader")){
+                        } else {
                             changeScene(event, "reader.fxml", "Welcome to the library dear reader!", user);
                         }
                     } else {
-                        System.out.println("Passwords didn't match.");
+                        //System.out.println("Passwords didn't match.");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setContentText("The provided credentials are incorrect.");
+                        alert.setContentText("The provided credentials are incorrect. Passwords didn't match.");
                         alert.show();
                     }
                 }

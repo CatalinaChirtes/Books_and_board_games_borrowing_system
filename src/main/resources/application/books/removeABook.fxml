@@ -3,6 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -55,7 +58,7 @@
                         <Image url="@book.jpg" />
                     </image>
                 </ImageView>
-                <Label fx:id="label_user" layoutX="27.0" layoutY="73.0" text="Hello, admin" textFill="WHITE">
+                <Label fx:id="label_user" layoutX="25.0" layoutY="70.0" prefHeight="30.0" prefWidth="155.0" textFill="WHITE">
                     <font>
                         <Font name="SansSerif Bold" size="24.0" />
                     </font>
@@ -72,6 +75,96 @@
         </AnchorPane>
     </left>
     <center>
+        <AnchorPane prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
 
+
+        <AnchorPane prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+            <children>
+                <TableView fx:id="availableBooksTableView" layoutX="30.0" layoutY="120.0" prefHeight="290.0" prefWidth="940.0">
+                    <columns>
+                        <TableColumn fx:id="bookIDTableColumn" prefWidth="38.0" text="ID" />
+                        <TableColumn fx:id="titleTableColumn" prefWidth="284.0" text="Title" />
+                        <TableColumn fx:id="authorTableColumn" prefWidth="197.0" text="Author" />
+                        <TableColumn fx:id="genreTableColumn" prefWidth="146.0" text="Genre" />
+                        <TableColumn fx:id="pagesTableColumn" prefWidth="46.0" text="Pages" />
+                        <TableColumn fx:id="ratingTableColumn" prefWidth="109.0" text="Goodreads Rating" />
+                        <TableColumn fx:id="languageTableColumn" prefWidth="119.0" text="Language" />
+                    </columns>
+                </TableView>
+                <TextField fx:id="keywordTextField" layoutX="30.0" layoutY="80.0" prefHeight="30.0" prefWidth="940.0" promptText="Search keyword" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: black; -fx-border-width: 0.3; -fx-background-color: white;" />
+                <AnchorPane layoutX="30.0" layoutY="440.0" prefHeight="224.0" prefWidth="940.0" style="-fx-background-color: rgba(236,210,159,255);">
+                    <children>
+                        <Label layoutX="30.0" layoutY="25.0" text="Title">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="titleInput" layoutX="30.0" layoutY="45.0" prefHeight="30.0" prefWidth="400.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="510.0" layoutY="25.0" text="Author">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="authorInput" layoutX="510.0" layoutY="45.0" prefHeight="30.0" prefWidth="400.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="30.0" layoutY="85.0" text="Genre">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="genreInput" layoutX="30.0" layoutY="105.0" prefHeight="30.0" prefWidth="400.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="30.0" layoutY="145.0" text="Pages">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="pagesInput" layoutX="30.0" layoutY="165.0" prefHeight="30.0" prefWidth="185.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="245.0" layoutY="145.0" text="Goodreads Rating">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="ratingInput" layoutX="245.0" layoutY="165.0" prefHeight="30.0" prefWidth="185.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </TextField>
+                        <Label layoutX="510.0" layoutY="85.0" text="Language">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="button_removeBook" layoutX="510.0" layoutY="165.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="400.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: #0c0c0c;" text="Remove Book" textFill="WHITE">
+                            <font>
+                                <Font name="SansSerif Bold" size="14.0" />
+                            </font>
+                        </Button>
+                        <TextField fx:id="languageInput" layoutX="510.0" layoutY="105.0" prefHeight="30.0" prefWidth="400.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-background-color: white; -fx-border-color: black; -fx-border-width: 0.3;">
+                            <font>
+                                <Font name="SansSerif Regular" size="14.0" />
+                            </font>
+                        </TextField>
+                    </children></AnchorPane>
+                <Label fx:id="label_user1" layoutX="30.0" layoutY="30.0" text="Please select the title of the book you want to remove:">
+                    <font>
+                        <Font name="SansSerif Bold" size="24.0" />
+                    </font>
+                </Label>
+            </children></AnchorPane>
     </center>
 </BorderPane>

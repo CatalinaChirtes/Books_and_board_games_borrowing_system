@@ -90,6 +90,9 @@ public class ReaderController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        label_user.setText("Hello, " + User.username);
+
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -265,7 +268,8 @@ public class ReaderController implements Initializable {
         }
     }
 
-    public void setUserInformation(String username){
-        label_user.setText("Hello, " + username);
+    public void setUserInformation(String user){
+        User.username = user;
+        label_user.setText("Hello, " + user);
     }
 }

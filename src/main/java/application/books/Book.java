@@ -1,6 +1,6 @@
 package application.books;
 
-public class Book implements Borrowable, Returnable {
+public class Book implements Borrowable, Returnable, Removable {
     Integer book_id;
     String title;
     String author;
@@ -93,6 +93,11 @@ public class Book implements Borrowable, Returnable {
     @Override
     public boolean isReturnable(Book book) {
         return book.status.equals("borrowed");
+    }
+
+    @Override
+    public boolean isRemovable(Book book) {
+        return book.status.equals("available");
     }
 
     public void borrowBook() {

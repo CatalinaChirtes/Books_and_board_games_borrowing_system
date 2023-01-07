@@ -111,6 +111,9 @@ public class BorrowABookController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        label_user.setText("Hello, " + User.username);
+
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -320,12 +323,13 @@ public class BorrowABookController implements Initializable {
             });
 
         } catch (SQLException e) {
-            Logger.getLogger(ReaderController.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BorrowABookController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
 
-    public void setUserInformation(String username){
-        label_user.setText("Hello, " + username);
+    public void setUserInformation(String user){
+        User.username = user;
+        label_user.setText("Hello, " + user);
     }
 }
