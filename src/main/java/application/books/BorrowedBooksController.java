@@ -177,7 +177,7 @@ public class BorrowedBooksController implements Initializable{
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getDBConnection();
 
-        String bookViewQuery = "SELECT book_id, title, author, genre, pages, Goodreads_rating, language, status FROM books";
+        String bookViewQuery = "SELECT books.* FROM borrowedbooks JOIN books ON books.book_id = borrowedbooks.book_id WHERE borrowedbooks.user_id = '" + User.userID + "'";
 
         try {
             Statement statement = connectDB.createStatement();
@@ -269,5 +269,9 @@ public class BorrowedBooksController implements Initializable{
     public void setUserInformation(String user){
         User.username = user;
         label_user.setText("Hello, " + user);
+    }
+
+    public void setUserID(Integer id) {
+        User.userID = id;
     }
 }

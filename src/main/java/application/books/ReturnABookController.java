@@ -200,16 +200,21 @@ public class ReturnABookController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 Book selectedBook = borrowedBooksTableView.getSelectionModel().getSelectedItem();
+
                 if (selectedBook != null && selectedBook.isReturnable(selectedBook)) {
-                    selectedBook.returnBook();
+                    selectedBook.returnBook(User.userID);
 
                     // update status in database
                     DatabaseConnection connection = new DatabaseConnection();
                     Connection conn = connection.getDBConnection();
                     String updateSql = "UPDATE books SET status='available' WHERE title='" + selectedBook.getTitle() + "' AND author='" + selectedBook.getAuthor() + "'";
+                    String deleteSql = "DELETE FROM borrowedbooks WHERE book_id = " + selectedBook.getBook_id();
+
                     try {
                         Statement statement = conn.createStatement();
                         statement.executeUpdate(updateSql);
+                        statement.executeUpdate(deleteSql);
+                        //selectedBook.borrowedBooks.remove(User.userID, selectedBook.getBook_id());
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -233,7 +238,7 @@ public class ReturnABookController implements Initializable {
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getDBConnection();
 
-        String bookViewQuery = "SELECT book_id, title, author, genre, pages, Goodreads_rating, language, status FROM books";
+        String bookViewQuery = "SELECT books.* FROM borrowedbooks JOIN books ON books.book_id = borrowedbooks.book_id WHERE borrowedbooks.user_id = '" + User.userID + "'";
 
         try {
             Statement statement = connectDB.createStatement();
@@ -331,5 +336,9 @@ public class ReturnABookController implements Initializable {
     public void setUserInformation(String user){
         User.username = user;
         label_user.setText("Hello, " + user);
+    }
+
+    public void setUserID(Integer id) {
+        User.userID = id;
     }
 }

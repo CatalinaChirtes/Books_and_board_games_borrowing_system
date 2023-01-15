@@ -210,6 +210,7 @@ public class BorrowABookController implements Initializable {
                     // update status in database
                     DatabaseConnection connection = new DatabaseConnection();
                     Connection conn = connection.getDBConnection();
+
                     String updateSql = "UPDATE books SET status='borrowed' WHERE title='" + selectedBook.getTitle() + "' AND author='" + selectedBook.getAuthor() + "'";
                     String insertSql = "INSERT INTO borrowedbooks (user_id, book_id) VALUES ('" + user_id + "', '" + book_id + "')";
                     try {

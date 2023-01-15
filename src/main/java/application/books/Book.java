@@ -113,7 +113,8 @@ public class Book implements Borrowable, Returnable, Removable {
         borrowedBooks.put(user_id, this.book_id);
     }
 
-    public void returnBook() {
+    public void returnBook(Integer user_id) {
         this.status = "available";
+        borrowedBooks.remove(user_id, this.book_id);
     }
 }
