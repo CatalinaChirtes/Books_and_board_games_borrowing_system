@@ -49,6 +49,18 @@ public class DonateABookController implements Initializable {
     private Button switchToReturnABook;
 
     @FXML
+    private Button switchToAvailableGames;
+
+    @FXML
+    private Button switchToBorrowedGames;
+
+    @FXML
+    private Button switchToBorrowAGame;
+
+    @FXML
+    private Button switchToReturnAGame;
+
+    @FXML
     private Button button_logout;
 
     @FXML
@@ -200,6 +212,66 @@ public class DonateABookController implements Initializable {
             public void handle(ActionEvent event) {
                 try {
                     root = FXMLLoader.load(getClass().getResource("returnABook.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToAvailableGames.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("availableGames.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToBorrowedGames.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("borrowedGames.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToBorrowAGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("borrowAGame.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToReturnAGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("returnAGame.fxml"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

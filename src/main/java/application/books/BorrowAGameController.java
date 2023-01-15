@@ -27,8 +27,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-public class ReaderController implements Initializable {
+public class BorrowAGameController implements Initializable {
 
     private Stage stage;
     private Scene scene;
@@ -68,28 +67,16 @@ public class ReaderController implements Initializable {
     private Label label_user;
 
     @FXML
-    private TableView<Book> availableBooksTableView;
+    private TableView<Game> availableGamesTableView;
 
     @FXML
-    private TableColumn<Book, Integer> bookIDTableColumn;
+    private TableColumn<Book, Integer> gameIDTableColumn;
 
     @FXML
-    private TableColumn<Book, String> titleTableColumn;
+    private TableColumn<Book, String> gameTableColumn;
 
     @FXML
-    private TableColumn<Book, String> authorTableColumn;
-
-    @FXML
-    private TableColumn<Book, String> genreTableColumn;
-
-    @FXML
-    private TableColumn<Book, Integer> pagesTableColumn;
-
-    @FXML
-    private TableColumn<Book, Float> ratingTableColumn;
-
-    @FXML
-    private TableColumn<Book, String> languageTableColumn;
+    private TableColumn<Book, String> playersTableColumn;
 
     @FXML
     private TableColumn<Book, String> statusTableColumn;
@@ -97,8 +84,18 @@ public class ReaderController implements Initializable {
     @FXML
     private TextField keywordTextField;
 
-    ObservableList<Book> bookObservableList = FXCollections.observableArrayList();
-    ObservableList<Book> availableBooks = FXCollections.observableArrayList();
+    @FXML
+    private TextField gameInput;
+
+    @FXML
+    private TextField playersInput;
+
+    @FXML
+    private Button button_borrowGame;
+
+    ObservableList<Game> gameObservableList = FXCollections.observableArrayList();
+    ObservableList<Game> availableGames = FXCollections.observableArrayList();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -247,79 +244,90 @@ public class ReaderController implements Initializable {
             }
         });
 
+        button_borrowGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Game selectedGame = availableGamesTableView.getSelectionModel().getSelectedItem();
 
+                if (selectedGame != null && selectedGame.isBorrowableGame(selectedGame)) {
+                    selectedGame.borrowGame(User.userID);
+
+                    int user_id = selectedGame.borrowedGames.keySet().iterator().next();
+                    int game_id = selectedGame.borrowedGames.values().iterator().next();
+
+                    // update status in database
+                    DatabaseConnection connection = new DatabaseConnection();
+                    Connection conn = connection.getDBConnection();
+
+                    String updateSql = "UPDATE games SET status='borrowed' WHERE game='" + selectedGame.getGame() + "'";
+                    String insertSql = "INSERT INTO borrowedgames (user_id, game_id) VALUES ('" + user_id + "', '" + game_id + "')";
+                    try {
+                        Statement statement = conn.createStatement();
+                        statement.executeUpdate(updateSql);
+                        statement.executeUpdate(insertSql);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        root = FXMLLoader.load(getClass().getResource("borrowAGame.fxml"));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                    scene = new Scene(root);
+                    stage.setScene(scene);
+                    stage.show();
+                }
+            }
+        });
+        loadTable();
+    }
+
+    public void loadTable(){
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getDBConnection();
 
-        String bookViewQuery = "SELECT book_id, title, author, genre, pages, Goodreads_rating, language, status FROM books";
+        String gameViewQuery = "SELECT game_id, game, players, status FROM games";
 
         try {
             Statement statement = connectDB.createStatement();
-            ResultSet queryOutput = statement.executeQuery(bookViewQuery);
+            ResultSet queryOutput = statement.executeQuery(gameViewQuery);
 
             while(queryOutput.next()) {
-                Integer queryBookID = queryOutput.getInt("book_id");
-                String queryTitle = queryOutput.getString("title");
-                String queryAuthor = queryOutput.getString("author");
-                String queryGenre = queryOutput.getString("genre");
-                Integer queryPages = queryOutput.getInt("pages");
-                Float queryRating = queryOutput.getFloat("Goodreads_rating");
-                String queryLanguage = queryOutput.getString("language");
+                Integer queryGameID = queryOutput.getInt("game_id");
+                String queryGame = queryOutput.getString("game");
+                String queryPlayers = queryOutput.getString("players");
                 String queryStatus = queryOutput.getString("status");
 
-                bookObservableList.add(new Book(queryBookID, queryTitle, queryAuthor, queryGenre, queryPages, queryRating, queryLanguage, queryStatus));
+                gameObservableList.add(new Game(queryGameID, queryGame, queryPlayers, queryStatus));
             }
 
-            bookIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("book_id"));
-            titleTableColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-            authorTableColumn.setCellValueFactory(new PropertyValueFactory<>("author"));
-            genreTableColumn.setCellValueFactory(new PropertyValueFactory<>("genre"));
-            pagesTableColumn.setCellValueFactory(new PropertyValueFactory<>("pages"));
-            ratingTableColumn.setCellValueFactory(new PropertyValueFactory<>("Goodreads_rating"));
-            ratingTableColumn.setCellFactory(column -> {
-                TableCell<Book, Float> cell = new TableCell<>() {
-                    @Override
-                    protected void updateItem(Float item, boolean empty) {
-                        super.updateItem(item, empty);
-                        if (empty) {
-                            setText(null);
-                        } else {
-                            DecimalFormat df = new DecimalFormat("#.00");
-                            setText(df.format(item));
-                        }
-                    }
-                };
-                return cell;
-            });
-            languageTableColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
+            gameIDTableColumn.setCellValueFactory(new PropertyValueFactory<>("game_id"));
+            gameTableColumn.setCellValueFactory(new PropertyValueFactory<>("game"));
+            playersTableColumn.setCellValueFactory(new PropertyValueFactory<>("players"));
 
             // available books
 
-            for (Book book : bookObservableList) {
-                if (book.getStatus().equalsIgnoreCase("available")) {
-                    availableBooks.add(book);
+            for (Game game : gameObservableList) {
+                if (game.getStatus().equalsIgnoreCase("available")) {
+                    availableGames.add(game);
                 }
             }
-            availableBooksTableView.setItems(availableBooks);
+            availableGamesTableView.setItems(availableGames);
 
 
-            FilteredList<Book> filteredData = new FilteredList<>(availableBooks, b -> true);
+            FilteredList<Game> filteredData = new FilteredList<>(availableGames, b -> true);
 
             keywordTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-                filteredData.setPredicate(Book -> {
+                filteredData.setPredicate(Game -> {
                     if (newValue.isEmpty() || newValue.isBlank() || newValue == null) {
                         return true;
                     }
 
                     String searchKeyword = newValue.toLowerCase();
 
-                    if (Book.getTitle().toLowerCase().indexOf(searchKeyword) > -1) {
-                        return true;
-                    } else if (Book.getAuthor().toLowerCase().indexOf(searchKeyword) > -1) {
-                        return true;
-                    } else if (Book.getGenre().toLowerCase().indexOf(searchKeyword) > -1) {
-                        return true;
-                    } else if (Book.getLanguage().toLowerCase().indexOf(searchKeyword) > -1) {
+                    if (Game.getGame().toLowerCase().indexOf(searchKeyword) > -1) {
                         return true;
                     } else {
                         return false;
@@ -328,14 +336,21 @@ public class ReaderController implements Initializable {
                 });
             });
 
-            SortedList<Book> sortedData = new SortedList<>(filteredData);
+            SortedList<Game> sortedData = new SortedList<>(filteredData);
 
-            sortedData.comparatorProperty().bind(availableBooksTableView.comparatorProperty());
+            sortedData.comparatorProperty().bind(availableGamesTableView.comparatorProperty());
 
-            availableBooksTableView.setItems(sortedData);
+            availableGamesTableView.setItems(sortedData);
+
+            availableGamesTableView.getSelectionModel().selectedItemProperty().addListener((observableValue, oldGame, newGame) -> {
+                if (newGame != null) {
+                    gameInput.setText(newGame.getGame());
+                    playersInput.setText(newGame.getPlayers());
+                }
+            });
 
         } catch (SQLException e) {
-            Logger.getLogger(ReaderController.class.getName()).log(Level.SEVERE, null, e);
+            Logger.getLogger(BorrowAGameController.class.getName()).log(Level.SEVERE, null, e);
             e.printStackTrace();
         }
     }
@@ -344,6 +359,7 @@ public class ReaderController implements Initializable {
         User.username = user;
         label_user.setText("Hello, " + user);
     }
+
     public void setUserID(Integer id) {
         User.userID = id;
     }
