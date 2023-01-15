@@ -30,7 +30,7 @@ public class LoginPageController implements Initializable {
         button_login.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBConnection.logInUser(event, tf_username.getText(), tf_password.getText());
+                DBConnection.logInUser(event, tf_username.getText(), tf_password.getText(), null);
             }
         });
 

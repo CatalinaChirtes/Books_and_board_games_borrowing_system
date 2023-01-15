@@ -5,6 +5,7 @@ public class User {
     String user;
 
     static String username;
+    static Integer userID;
     String password;
 
     public User(Integer user_id, String user, String password) {

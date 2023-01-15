@@ -117,7 +117,7 @@ public class BorrowABookController implements Initializable {
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBConnection.changeScene(event, "login.fxml", "Login", null);
+                DBConnection.changeScene(event, "login.fxml", "Login", null, null);
             }
         });
 
@@ -200,16 +200,22 @@ public class BorrowABookController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 Book selectedBook = availableBooksTableView.getSelectionModel().getSelectedItem();
+
                 if (selectedBook != null && selectedBook.isBorrowable(selectedBook)) {
-                    selectedBook.borrowBook();
+                    selectedBook.borrowBook(User.userID);
+
+                    int user_id = selectedBook.borrowedBooks.keySet().iterator().next();
+                    int book_id = selectedBook.borrowedBooks.values().iterator().next();
 
                     // update status in database
                     DatabaseConnection connection = new DatabaseConnection();
                     Connection conn = connection.getDBConnection();
                     String updateSql = "UPDATE books SET status='borrowed' WHERE title='" + selectedBook.getTitle() + "' AND author='" + selectedBook.getAuthor() + "'";
+                    String insertSql = "INSERT INTO borrowedbooks (user_id, book_id) VALUES ('" + user_id + "', '" + book_id + "')";
                     try {
                         Statement statement = conn.createStatement();
                         statement.executeUpdate(updateSql);
+                        statement.executeUpdate(insertSql);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -331,5 +337,9 @@ public class BorrowABookController implements Initializable {
     public void setUserInformation(String user){
         User.username = user;
         label_user.setText("Hello, " + user);
+    }
+
+    public void setUserID(Integer id) {
+        User.userID = id;
     }
 }

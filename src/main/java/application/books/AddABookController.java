@@ -131,7 +131,7 @@ public class AddABookController implements Initializable {
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBConnection.changeScene(event, "login.fxml", "Login", null);
+                DBConnection.changeScene(event, "login.fxml", "Login", null, null);
             }
         });
 

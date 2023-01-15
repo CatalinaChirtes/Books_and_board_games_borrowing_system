@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.*;
 
 public class DBConnection {
-    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username) {
+    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, Integer id) {
         Parent root = null;
 
         if(username != null) {
@@ -27,6 +27,7 @@ public class DBConnection {
                     root = loader.load();
                     ReaderController readerController = loader.getController();
                     readerController.setUserInformation(username);
+                    readerController.setUserID(id);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -44,7 +45,7 @@ public class DBConnection {
         stage.show();
     }
 
-    public static void logInUser(ActionEvent event, String user, String password) {
+    public static void logInUser(ActionEvent event, String user, String password, Integer id) {
         String dbName = "bookdatabase";
         String userName = "root";
         String passWord = "";
@@ -54,7 +55,7 @@ public class DBConnection {
         ResultSet resultSet = null;
         try {
             connection = DriverManager.getConnection("jdbc:mysql://localhost/"+dbName,userName,passWord);
-            preparedStatement = connection.prepareStatement("SELECT password FROM users WHERE user = ?");
+            preparedStatement = connection.prepareStatement("SELECT user_id, password FROM users WHERE user = ?");
             preparedStatement.setString(1, user);
             resultSet = preparedStatement.executeQuery();
 
@@ -66,11 +67,12 @@ public class DBConnection {
             } else {
                 while(resultSet.next()) {
                     String retrievedPassword = resultSet.getString("password");
+                    id = resultSet.getInt("user_id");
                     if (retrievedPassword.equals(password)) {
                         if(user.equals("admin")) {
-                            changeScene(event, "admin.fxml", "Welcome to the library dear admin!", user);
+                            changeScene(event, "admin.fxml", "Welcome to the library dear admin!", user, id);
                         } else {
-                            changeScene(event, "reader.fxml", "Welcome to the library dear reader!", user);
+                            changeScene(event, "reader.fxml", "Welcome to the library dear reader!", user, id);
                         }
                     } else {
                         //System.out.println("Passwords didn't match.");

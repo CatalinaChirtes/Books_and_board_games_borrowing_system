@@ -1,5 +1,11 @@
 package application.books;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
 public class Book implements Borrowable, Returnable, Removable {
     Integer book_id;
     String title;
@@ -9,6 +15,8 @@ public class Book implements Borrowable, Returnable, Removable {
     Float Goodreads_rating;
     String language;
     String status;
+
+    static Map<Integer, Integer> borrowedBooks = new HashMap<Integer, Integer>();
 
     public Book(Integer book_id, String title, String author, String genre, Integer pages, Float goodreads_rating, String language, String status) {
         this.book_id = book_id;
@@ -100,8 +108,9 @@ public class Book implements Borrowable, Returnable, Removable {
         return book.status.equals("available");
     }
 
-    public void borrowBook() {
+    public void borrowBook(Integer user_id) {
         this.status = "borrowed";
+        borrowedBooks.put(user_id, this.book_id);
     }
 
     public void returnBook() {
