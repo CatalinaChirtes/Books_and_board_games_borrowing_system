@@ -105,6 +105,7 @@ public class BorrowAGameController implements Initializable {
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                clearBorrowedGames();
                 DBConnection.changeScene(event, "login.fxml", "Login", null, null);
             }
         });
@@ -252,8 +253,8 @@ public class BorrowAGameController implements Initializable {
                 if (selectedGame != null && selectedGame.isBorrowableGame(selectedGame)) {
                     selectedGame.borrowGame(User.userID);
 
-                    int user_id = selectedGame.borrowedGames.keySet().iterator().next();
-                    int game_id = selectedGame.borrowedGames.values().iterator().next();
+                    int user_id = selectedGame.borrowedGamesMap.keySet().iterator().next();
+                    int game_id = selectedGame.borrowedGamesMap.values().iterator().next();
 
                     // update status in database
                     DatabaseConnection connection = new DatabaseConnection();
@@ -362,5 +363,11 @@ public class BorrowAGameController implements Initializable {
 
     public void setUserID(Integer id) {
         User.userID = id;
+    }
+
+    public void clearBorrowedGames() {
+        for (Game game : gameObservableList) {
+            game.borrowedGamesMap.clear();
+        }
     }
 }

@@ -9,7 +9,7 @@ public class Game implements BorrowableGame, ReturnableGame {
     String players;
     String status;
 
-    static Map<Integer, Integer> borrowedGames = new HashMap<Integer, Integer>();
+    Map<Integer, Integer> borrowedGamesMap = new HashMap<Integer, Integer>();
 
     public Game(Integer game_id, String game, String players, String status) {
         this.game_id = game_id;
@@ -50,14 +50,6 @@ public class Game implements BorrowableGame, ReturnableGame {
         this.status = status;
     }
 
-    public static Map<Integer, Integer> getBorrowedGames() {
-        return borrowedGames;
-    }
-
-    public static void setBorrowedGames(Map<Integer, Integer> borrowedGames) {
-        Game.borrowedGames = borrowedGames;
-    }
-
     @Override
     public boolean isBorrowableGame(Game game) {
         return game.status.equals("available");
@@ -70,11 +62,11 @@ public class Game implements BorrowableGame, ReturnableGame {
 
     public void borrowGame(Integer user_id) {
         this.status = "borrowed";
-        borrowedGames.put(user_id, this.game_id);
+        borrowedGamesMap.put(user_id, this.game_id);
     }
 
     public void returnGame(Integer user_id) {
         this.status = "available";
-        borrowedGames.remove(user_id, this.game_id);
+        borrowedGamesMap.remove(user_id, this.game_id);
     }
 }

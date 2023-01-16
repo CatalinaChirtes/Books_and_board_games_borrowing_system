@@ -1,5 +1,7 @@
 package application.books;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -79,6 +82,9 @@ public class AdminBorrowedBooksController implements Initializable {
     private TableColumn<Book, String> languageTableColumn;
 
     @FXML
+    private TableColumn<Book, String> userTableColumn;
+
+    @FXML
     private TableColumn<Book, String> statusTableColumn;
 
     @FXML
@@ -95,6 +101,7 @@ public class AdminBorrowedBooksController implements Initializable {
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                clearBorrowedBooks();
                 DBConnection.changeScene(event, "login.fxml", "Login", null, null);
             }
         });
@@ -177,7 +184,8 @@ public class AdminBorrowedBooksController implements Initializable {
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getDBConnection();
 
-        String bookViewQuery = "SELECT book_id, title, author, genre, pages, Goodreads_rating, language, status FROM books";
+        //String bookViewQuery = "SELECT book_id, title, author, genre, pages, Goodreads_rating, language, status FROM books";
+        String bookViewQuery = "SELECT books.book_id, books.title, books.author, books.genre, books.pages, books.Goodreads_rating, books.language, books.status, users.user FROM books JOIN borrowedbooks ON books.book_id = borrowedbooks.book_id JOIN users ON borrowedbooks.user_id = users.user_id";
 
         try {
             Statement statement = connectDB.createStatement();
@@ -192,7 +200,7 @@ public class AdminBorrowedBooksController implements Initializable {
                 Float queryRating = queryOutput.getFloat("Goodreads_rating");
                 String queryLanguage = queryOutput.getString("language");
                 String queryStatus = queryOutput.getString("status");
-
+                String queryUser = queryOutput.getString("user");
                 bookObservableList.add(new Book(queryBookID, queryTitle, queryAuthor, queryGenre, queryPages, queryRating, queryLanguage, queryStatus));
             }
 
@@ -218,6 +226,22 @@ public class AdminBorrowedBooksController implements Initializable {
                 return cell;
             });
             languageTableColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
+            //userTableColumn.setCellValueFactory(new PropertyValueFactory<>("user"));
+            userTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Book, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> book) {
+                    try {
+                        // Get the user_id of the user that borrowed the book from the borrowed books table
+                        int userID = getUserIDFromBorrowedBooksTable(book.getValue().getBook_id());
+                        // Get the username of the user from the user table using the user_id
+                        String username = getUsernameFromUserTable(userID);
+                        return new SimpleStringProperty(username);
+                    } catch (SQLException e) {
+                        Logger.getLogger(AdminBorrowedBooksController.class.getName()).log(Level.SEVERE, null, e);
+                    }
+                    return new SimpleStringProperty("");
+                }
+            });
 
             // borrowed books
 
@@ -269,5 +293,39 @@ public class AdminBorrowedBooksController implements Initializable {
     public void setUserInformation(String user){
         User.username = user;
         label_user.setText("Hello, " + user);
+    }
+
+    private int getUserIDFromBorrowedBooksTable(int bookID) throws SQLException {
+        // Create a connection to the database
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectDB = connection.getDBConnection();
+        Statement statement = connectDB.createStatement();
+        // Execute a query to get the user_id from the borrowed books table
+        ResultSet resultSet = statement.executeQuery("SELECT user_id FROM borrowedbooks WHERE book_id = " + bookID);
+        int userID = 0;
+        while (resultSet.next()) {
+            userID = resultSet.getInt("user_id");
+        }
+        return userID;
+    }
+
+    private String getUsernameFromUserTable(int userID) throws SQLException {
+        // Create a connection to the database
+        DatabaseConnection connection = new DatabaseConnection();
+        Connection connectDB = connection.getDBConnection();
+        Statement statement = connectDB.createStatement();
+        // Execute a query to get the username from the user table
+        ResultSet resultSet = statement.executeQuery("SELECT user FROM users WHERE user_id = " + userID);
+        String username = "";
+        while (resultSet.next()) {
+            username = resultSet.getString("user");
+        }
+        return username;
+    }
+
+    public void clearBorrowedBooks() {
+        for (Book book : bookObservableList) {
+            book.borrowedBooksMap.clear();
+        }
     }
 }

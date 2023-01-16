@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.books.AdminController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.books.AdminBorrowedGamesController">
     <left>
         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #0c0c0c;" BorderPane.alignment="CENTER">
             <children>
@@ -45,7 +45,7 @@
                         <Insets left="-18.0" />
                     </padding>
                 </Button>
-                <Button fx:id="switchToAvailableBooks" layoutY="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: #22292B;" text="Available books" textFill="WHITE">
+                <Button fx:id="switchToAvailableBooks" layoutY="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Available books" textFill="WHITE">
                     <font>
                         <Font name="SansSerif Bold" size="14.0" />
                     </font>
@@ -71,58 +71,55 @@
                         <Insets left="-52.0" />
                     </padding>
                 </Button>
-            <ImageView fitHeight="113.0" fitWidth="200.0" layoutY="360.0">
-               <image>
-                  <Image url="@games.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="switchToAvailableGames" layoutY="480.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Available games" textFill="WHITE">
-               <font>
-                  <Font name="SansSerif Bold" size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="-18.0" />
-               </padding>
-            </Button>
-            <Button fx:id="switchToBorrowedGames" layoutY="520.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Borrowed games" textFill="WHITE">
-               <font>
-                  <Font name="SansSerif Bold" size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="-18.0" />
-               </padding>
-            </Button>
-            <Button fx:id="switchToAddAGame" layoutY="560.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Add a game" textFill="WHITE">
-               <font>
-                  <Font name="SansSerif Bold" size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="-54.0" />
-               </padding>
-            </Button>
-            <Button fx:id="switchToRemoveAGame" layoutY="600.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Remove a game" textFill="WHITE">
-               <font>
-                  <Font name="SansSerif Bold" size="14.0" />
-               </font>
-               <padding>
-                  <Insets left="-27.0" />
-               </padding>
-            </Button>
+                <ImageView fitHeight="113.0" fitWidth="200.0" layoutY="360.0">
+                    <image>
+                        <Image url="@games.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="switchToAvailableGames" layoutY="480.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Available games" textFill="WHITE">
+                    <font>
+                        <Font name="SansSerif Bold" size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets left="-18.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="switchToBorrowedGames" layoutY="520.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: #22292B;" text="Borrowed games" textFill="WHITE">
+                    <font>
+                        <Font name="SansSerif Bold" size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets left="-18.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="switchToAddAGame" layoutY="560.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Add a game" textFill="WHITE">
+                    <font>
+                        <Font name="SansSerif Bold" size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets left="-54.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="switchToRemoveAGame" layoutY="600.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Remove a game" textFill="WHITE">
+                    <font>
+                        <Font name="SansSerif Bold" size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets left="-27.0" />
+                    </padding>
+                </Button>
             </children>
         </AnchorPane>
     </left>
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <children>
-                <TableView fx:id="availableBooksTableView" layoutX="30.0" layoutY="60.0" prefHeight="610.0" prefWidth="940.0">
+                <TableView fx:id="availableGamesTableView" layoutX="30.0" layoutY="60.0" prefHeight="610.0" prefWidth="940.0">
                     <columns>
-                        <TableColumn fx:id="bookIDTableColumn" prefWidth="38.0" text="ID" />
-                        <TableColumn fx:id="titleTableColumn" prefWidth="284.0" text="Title" />
-                        <TableColumn fx:id="authorTableColumn" prefWidth="197.0" text="Author" />
-                        <TableColumn fx:id="genreTableColumn" prefWidth="146.0" text="Genre" />
-                        <TableColumn fx:id="pagesTableColumn" prefWidth="46.0" text="Pages" />
-                        <TableColumn fx:id="ratingTableColumn" prefWidth="109.0" text="Goodreads Rating" />
-                        <TableColumn fx:id="languageTableColumn" prefWidth="119.0" text="Language" />
+                        <TableColumn fx:id="gameIDTableColumn" prefWidth="38.0" text="ID" />
+                        <TableColumn fx:id="gameTableColumn" prefWidth="436.00001525878906" text="Game" />
+                        <TableColumn fx:id="playersTableColumn" prefWidth="295.199951171875" text="Number of Players" />
+                  <TableColumn fx:id="userTableColumn" prefWidth="169.5999755859375" text="User" />
                     </columns>
                 </TableView>
                 <TextField fx:id="keywordTextField" layoutX="30.0" layoutY="16.0" prefHeight="30.0" prefWidth="940.0" promptText="Search keyword" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: black; -fx-border-width: 0.3; -fx-background-color: white;" />

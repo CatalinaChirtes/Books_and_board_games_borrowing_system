@@ -131,6 +131,7 @@ public class AddABookController implements Initializable {
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                clearBorrowedBooks();
                 DBConnection.changeScene(event, "login.fxml", "Login", null, null);
             }
         });
@@ -420,5 +421,11 @@ public class AddABookController implements Initializable {
     public void setUserInformation(String user){
         User.username = user;
         label_user.setText("Hello, " + user);
+    }
+
+    public void clearBorrowedBooks() {
+        for (Book book : bookObservableList) {
+            book.borrowedBooksMap.clear();
+        }
     }
 }

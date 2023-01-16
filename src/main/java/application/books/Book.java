@@ -14,7 +14,7 @@ public class Book implements Borrowable, Returnable, Removable {
     String language;
     String status;
 
-    static Map<Integer, Integer> borrowedBooks = new HashMap<Integer, Integer>();
+    Map<Integer, Integer> borrowedBooksMap = new HashMap<Integer, Integer>();
 
     public Book(Integer book_id, String title, String author, String genre, Integer pages, Float goodreads_rating, String language, String status) {
         this.book_id = book_id;
@@ -108,11 +108,11 @@ public class Book implements Borrowable, Returnable, Removable {
 
     public void borrowBook(Integer user_id) {
         this.status = "borrowed";
-        borrowedBooks.put(user_id, this.book_id);
+        borrowedBooksMap.put(user_id, this.book_id);
     }
 
     public void returnBook(Integer user_id) {
         this.status = "available";
-        borrowedBooks.remove(user_id, this.book_id);
+        borrowedBooksMap.remove(user_id, this.book_id);
     }
 }

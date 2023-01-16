@@ -129,6 +129,7 @@ public class BorrowABookController implements Initializable {
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                clearBorrowedBooks();
                 DBConnection.changeScene(event, "login.fxml", "Login", null, null);
             }
         });
@@ -276,8 +277,8 @@ public class BorrowABookController implements Initializable {
                 if (selectedBook != null && selectedBook.isBorrowable(selectedBook)) {
                     selectedBook.borrowBook(User.userID);
 
-                    int user_id = selectedBook.borrowedBooks.keySet().iterator().next();
-                    int book_id = selectedBook.borrowedBooks.values().iterator().next();
+                    int user_id = selectedBook.borrowedBooksMap.keySet().iterator().next();
+                    int book_id = selectedBook.borrowedBooksMap.values().iterator().next();
 
                     // update status in database
                     DatabaseConnection connection = new DatabaseConnection();
@@ -287,8 +288,8 @@ public class BorrowABookController implements Initializable {
                     String insertSql = "INSERT INTO borrowedbooks (user_id, book_id) VALUES ('" + user_id + "', '" + book_id + "')";
                     try {
                         Statement statement = conn.createStatement();
-                        statement.executeUpdate(updateSql);
                         statement.executeUpdate(insertSql);
+                        statement.executeUpdate(updateSql);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -414,5 +415,11 @@ public class BorrowABookController implements Initializable {
 
     public void setUserID(Integer id) {
         User.userID = id;
+    }
+
+    public void clearBorrowedBooks() {
+        for (Book book : bookObservableList) {
+            book.borrowedBooksMap.clear();
+        }
     }
 }

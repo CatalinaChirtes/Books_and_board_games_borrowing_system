@@ -129,6 +129,7 @@ public class ReturnABookController implements Initializable {
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                clearBorrowedBooks();
                 DBConnection.changeScene(event, "login.fxml", "Login", null, null);
             }
         });
@@ -284,8 +285,8 @@ public class ReturnABookController implements Initializable {
 
                     try {
                         Statement statement = conn.createStatement();
-                        statement.executeUpdate(updateSql);
                         statement.executeUpdate(deleteSql);
+                        statement.executeUpdate(updateSql);
                         //selectedBook.borrowedBooks.remove(User.userID, selectedBook.getBook_id());
                     } catch (SQLException e) {
                         e.printStackTrace();
@@ -412,5 +413,11 @@ public class ReturnABookController implements Initializable {
 
     public void setUserID(Integer id) {
         User.userID = id;
+    }
+
+    public void clearBorrowedBooks() {
+        for (Book book : bookObservableList) {
+            book.borrowedBooksMap.clear();
+        }
     }
 }

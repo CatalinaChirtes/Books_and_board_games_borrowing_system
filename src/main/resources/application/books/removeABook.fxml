@@ -21,7 +21,7 @@
                         <Font name="SansSerif Bold" size="14.0" />
                     </font>
                 </Button>
-                <Button fx:id="switchToRemoveABook" layoutY="330.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: #22292B;" text="Remove a book" textFill="WHITE">
+                <Button fx:id="switchToRemoveABook" layoutY="270.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: #22292B;" text="Remove a book" textFill="WHITE">
                     <font>
                         <Font name="SansSerif Bold" size="14.0" />
                     </font>
@@ -29,7 +29,7 @@
                         <Insets left="-26.0" />
                     </padding>
                 </Button>
-                <Button fx:id="switchToAddUser" layoutY="370.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Add a new user" textFill="WHITE">
+                <Button fx:id="switchToAddUser" layoutY="310.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Add a new user" textFill="#ecd29f">
                     <font>
                         <Font name="SansSerif Bold" size="14.0" />
                     </font>
@@ -37,7 +37,7 @@
                         <Insets left="-27.0" />
                     </padding>
                 </Button>
-                <Button fx:id="switchToBorrowedBooks" layoutY="250.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Borrowed books" textFill="WHITE">
+                <Button fx:id="switchToBorrowedBooks" layoutY="190.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Borrowed books" textFill="WHITE">
                     <font>
                         <Font name="SansSerif Bold" size="14.0" />
                     </font>
@@ -45,7 +45,7 @@
                         <Insets left="-18.0" />
                     </padding>
                 </Button>
-                <Button fx:id="switchToAvailableBooks" layoutY="210.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Available books" textFill="WHITE">
+                <Button fx:id="switchToAvailableBooks" layoutY="150.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Available books" textFill="WHITE">
                     <font>
                         <Font name="SansSerif Bold" size="14.0" />
                     </font>
@@ -53,22 +53,59 @@
                         <Insets left="-20.0" />
                     </padding>
                 </Button>
-                <ImageView fitHeight="101.0" fitWidth="200.0" layoutY="80.0">
+                <ImageView fitHeight="101.0" fitWidth="200.0" layoutY="35.0">
                     <image>
                         <Image url="@book.jpg" />
                     </image>
                 </ImageView>
-                <Label fx:id="label_user" layoutX="25.0" layoutY="70.0" prefHeight="30.0" prefWidth="155.0" textFill="WHITE">
+                <Label fx:id="label_user" layoutX="25.0" layoutY="30.0" prefHeight="30.0" prefWidth="155.0" textFill="WHITE">
                     <font>
                         <Font name="SansSerif Bold" size="24.0" />
                     </font>
                 </Label>
-                <Button fx:id="switchToAddABook" layoutY="290.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Add a book" textFill="WHITE">
+                <Button fx:id="switchToAddABook" layoutY="230.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Add a book" textFill="WHITE">
                     <font>
                         <Font name="SansSerif Bold" size="14.0" />
                     </font>
                     <padding>
                         <Insets left="-52.0" />
+                    </padding>
+                </Button>
+                <ImageView fitHeight="113.0" fitWidth="200.0" layoutY="360.0">
+                    <image>
+                        <Image url="@games.png" />
+                    </image>
+                </ImageView>
+                <Button fx:id="switchToAvailableGames" layoutY="480.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Available games" textFill="WHITE">
+                    <font>
+                        <Font name="SansSerif Bold" size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets left="-18.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="switchToBorrowedGames" layoutY="520.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Borrowed games" textFill="WHITE">
+                    <font>
+                        <Font name="SansSerif Bold" size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets left="-18.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="switchToAddAGame" layoutY="560.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Add a game" textFill="WHITE">
+                    <font>
+                        <Font name="SansSerif Bold" size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets left="-54.0" />
+                    </padding>
+                </Button>
+                <Button fx:id="switchToRemoveAGame" layoutY="600.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-radius: 0; -fx-border-radius: 0; -fx-background-color: transparent;" text="Remove a game" textFill="WHITE">
+                    <font>
+                        <Font name="SansSerif Bold" size="14.0" />
+                    </font>
+                    <padding>
+                        <Insets left="-27.0" />
                     </padding>
                 </Button>
             </children>

@@ -104,6 +104,7 @@ public class ReturnAGameController implements Initializable {
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                clearBorrowedGames();
                 DBConnection.changeScene(event, "login.fxml", "Login", null, null);
             }
         });
@@ -358,5 +359,11 @@ public class ReturnAGameController implements Initializable {
 
     public void setUserID(Integer id) {
         User.userID = id;
+    }
+
+    public void clearBorrowedGames() {
+        for (Game game : gameObservableList) {
+            game.borrowedGamesMap.clear();
+        }
     }
 }
