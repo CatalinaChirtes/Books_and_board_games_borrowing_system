@@ -23,9 +23,9 @@
       </AnchorPane>
    </left>
    <right>
-      <AnchorPane prefHeight="400.0" prefWidth="370.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="loginPane" prefHeight="400.0" prefWidth="370.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="148.0" layoutY="54.0" text="Login">
+            <Label fx:id="loginLabel" layoutX="148.0" layoutY="54.0" text="Login">
                <font>
                   <Font name="SansSerif Bold" size="24.0" />
                </font>
@@ -50,7 +50,7 @@
                   <Font name="SansSerif Regular" size="14.0" />
                </font>
             </PasswordField>
-            <Button fx:id="button_login" layoutX="40.0" layoutY="283.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="290.0" style="-fx-background-color: black; -fx-background-radius: 15; -fx-border-radius: 15;" text="Login" textFill="WHITE">
+            <Button fx:id="button_login" layoutX="40.0" layoutY="283.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="290.0" style="-fx-background-radius: 15; -fx-border-radius: 15; -fx-background-color: black;" text="Login" textFill="WHITE">
                <font>
                   <Font name="SansSerif Bold" size="14.0" />
                </font>

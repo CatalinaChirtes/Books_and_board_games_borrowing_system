@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class Book implements Borrowable, Returnable, Removable {
+public class Book implements Borrowable, Returnable, Removable, Nameable {
     Integer book_id;
     String title;
     String author;
@@ -104,6 +104,16 @@ public class Book implements Borrowable, Returnable, Removable {
     @Override
     public boolean isRemovable(Book book) {
         return book.status.equals("available");
+    }
+
+    @Override
+    public void setName(String name) {
+        this.title = name;
+    }
+
+    @Override
+    public String getName() {
+        return this.title;
     }
 
     public void borrowBook(Integer user_id) {

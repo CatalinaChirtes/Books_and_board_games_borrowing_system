@@ -26,6 +26,9 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static application.books.Configurations.EMPTYLENGTH;
+import static application.books.Configurations.USERNAMEMINLENGTH;
+
 public class AddANewUserController implements Initializable {
 
     private Stage stage;
@@ -245,8 +248,15 @@ public class AddANewUserController implements Initializable {
                 String username = userInput.getText();
                 String password = passwordInput.getText();
 
-                if (username.trim().isEmpty()) {
+                if (username.length() == EMPTYLENGTH) {
                     usernameError.setText("Error: Username cannot be empty");
+                    return;
+                } else {
+                    usernameError.setText("");
+                }
+
+                if (username.length() < USERNAMEMINLENGTH) {
+                    usernameError.setText("Error: Username cannot be less than 4 characters.");
                     return;
                 } else {
                     usernameError.setText("");
@@ -267,7 +277,7 @@ public class AddANewUserController implements Initializable {
                     e.printStackTrace();
                 }
 
-                if (password.trim().isEmpty()) {
+                if (password.length() == EMPTYLENGTH) {
                     passwordError.setText("Error: Password cannot be empty");
                     return;
                 } else {

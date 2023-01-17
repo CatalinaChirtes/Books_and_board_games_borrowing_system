@@ -27,6 +27,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static application.books.Configurations.TITLEMAXLENGTH;
+
 public class AddAGameController implements Initializable {
 
     private Stage stage;
@@ -263,6 +265,15 @@ public class AddAGameController implements Initializable {
                     gameError.setText("");
                 }
 
+                if (game.length() > TITLEMAXLENGTH) {
+                    // Display error message
+                    gameError.setText("Error: Game name must be less than 100 characters.");
+                    return;
+                } else {
+                    // Clear error message
+                    gameError.setText("");
+                }
+
                 // Check if game already exists in the database
                 String gameQuery = "SELECT game FROM games WHERE game='" + game + "'";
                 try (Connection connection = new DatabaseConnection().getDBConnection();
@@ -291,8 +302,14 @@ public class AddAGameController implements Initializable {
                     playersError.setText("");
                 }
 
-                String query = "INSERT INTO games(game, players) " +
-                        "VALUES('" + game + "', '" + players + "')";
+//                String query = "INSERT INTO games(game, players) " +
+//                        "VALUES('" + game + "', '" + players + "')";
+
+                Integer game_id = null;
+                Game newGame = new Game(game_id, game, players, "available");
+                newGame.setName(game);
+
+                String query = "INSERT INTO games (game, players) VALUES ('" + newGame.getName() + "', '" + newGame.getPlayers() + "');";
 
                 try (Connection connection = new DatabaseConnection().getDBConnection();
                      Statement statement = connection.createStatement()) {

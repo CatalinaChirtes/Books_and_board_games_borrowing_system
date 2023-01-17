@@ -27,6 +27,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static application.books.Configurations.TITLEMAXLENGTH;
+
 public class AddABookController implements Initializable {
 
     private Stage stage;
@@ -303,6 +305,15 @@ public class AddABookController implements Initializable {
                     titleError.setText("");
                 }
 
+                if (title.length() > TITLEMAXLENGTH) {
+                    // Display error message
+                    titleError.setText("Error: Title must be less than 100 characters.");
+                    return;
+                } else {
+                    // Clear error message
+                    titleError.setText("");
+                }
+
                 // Check if title already exists in the database
                 String titleQuery = "SELECT title FROM books WHERE title='" + title + "'";
                 try (Connection connection = new DatabaseConnection().getDBConnection();
@@ -378,8 +389,15 @@ public class AddABookController implements Initializable {
                     languageError.setText("");
                 }
 
+//                String query = "INSERT INTO books(title, author, genre, pages, Goodreads_rating, language) " +
+//                        "VALUES('" + title + "', '" + author + "', '" + genre + "', " + pages + ", " + rating + ", '" + language + "')";
+
+                Integer book_id = null;
+                Book newBook = new Book(book_id, title, author, genre, pages, rating, language, "available");
+                newBook.setName(title);
+
                 String query = "INSERT INTO books(title, author, genre, pages, Goodreads_rating, language) " +
-                        "VALUES('" + title + "', '" + author + "', '" + genre + "', " + pages + ", " + rating + ", '" + language + "')";
+                        "VALUES('" + newBook.getName() + "', '" + newBook.getAuthor() + "', '" + newBook.getGenre() + "', " + newBook.getPages() + ", " + newBook.getGoodreads_rating() + ", '" + newBook.getLanguage() + "')";
 
                 try (Connection connection = new DatabaseConnection().getDBConnection();
                      Statement statement = connection.createStatement()) {
