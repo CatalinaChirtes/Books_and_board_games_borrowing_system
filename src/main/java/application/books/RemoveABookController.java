@@ -49,6 +49,18 @@ public class RemoveABookController implements Initializable {
     private Button switchToAddUser;
 
     @FXML
+    private Button switchToAvailableGames;
+
+    @FXML
+    private Button switchToBorrowedGames;
+
+    @FXML
+    private Button switchToAddAGame;
+
+    @FXML
+    private Button switchToRemoveAGame;
+
+    @FXML
     private Button button_logout;
 
     @FXML
@@ -197,6 +209,66 @@ public class RemoveABookController implements Initializable {
             }
         });
 
+        switchToAvailableGames.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("adminAvailableGames.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToBorrowedGames.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("adminBorrowedGames.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToAddAGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("addAGame.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToRemoveAGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("removeAGame.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
         button_removeBook.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -210,7 +282,7 @@ public class RemoveABookController implements Initializable {
                         Statement statement = conn.createStatement();
                         statement.executeUpdate(deleteSql);
                     } catch (SQLException e) {
-                        Logger.getLogger(BorrowABookController.class.getName()).log(Level.SEVERE, null, e);
+                        Logger.getLogger(RemoveABookController.class.getName()).log(Level.SEVERE, null, e);
                     }
 
                     try {

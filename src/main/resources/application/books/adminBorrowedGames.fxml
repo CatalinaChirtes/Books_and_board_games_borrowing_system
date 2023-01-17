@@ -114,7 +114,7 @@
     <center>
         <AnchorPane prefHeight="200.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <children>
-                <TableView fx:id="availableGamesTableView" layoutX="30.0" layoutY="60.0" prefHeight="610.0" prefWidth="940.0">
+                <TableView fx:id="borrowedGamesTableView" layoutX="30.0" layoutY="60.0" prefHeight="610.0" prefWidth="940.0">
                     <columns>
                         <TableColumn fx:id="gameIDTableColumn" prefWidth="38.0" text="ID" />
                         <TableColumn fx:id="gameTableColumn" prefWidth="436.00001525878906" text="Game" />

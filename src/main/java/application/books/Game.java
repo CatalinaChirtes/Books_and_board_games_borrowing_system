@@ -3,7 +3,7 @@ package application.books;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Game implements BorrowableGame, ReturnableGame {
+public class Game implements BorrowableGame, ReturnableGame, RemovableGame {
     Integer game_id;
     String game;
     String players;
@@ -58,6 +58,11 @@ public class Game implements BorrowableGame, ReturnableGame {
     @Override
     public boolean isReturnableGame(Game game) {
         return game.status.equals("borrowed");
+    }
+
+    @Override
+    public boolean isRemovableGame(Game game) {
+        return game.status.equals("available");
     }
 
     public void borrowGame(Integer user_id) {

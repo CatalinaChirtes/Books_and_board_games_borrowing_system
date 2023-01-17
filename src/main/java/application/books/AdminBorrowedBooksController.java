@@ -52,6 +52,18 @@ public class AdminBorrowedBooksController implements Initializable {
     private Button switchToAddUser;
 
     @FXML
+    private Button switchToAvailableGames;
+
+    @FXML
+    private Button switchToBorrowedGames;
+
+    @FXML
+    private Button switchToAddAGame;
+
+    @FXML
+    private Button switchToRemoveAGame;
+
+    @FXML
     private Button button_logout;
 
     @FXML
@@ -181,6 +193,66 @@ public class AdminBorrowedBooksController implements Initializable {
             }
         });
 
+        switchToAvailableGames.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("adminAvailableGames.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToBorrowedGames.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("adminBorrowedGames.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToAddAGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("addAGame.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToRemoveAGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("removeAGame.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getDBConnection();
 
@@ -226,15 +298,43 @@ public class AdminBorrowedBooksController implements Initializable {
                 return cell;
             });
             languageTableColumn.setCellValueFactory(new PropertyValueFactory<>("language"));
-            //userTableColumn.setCellValueFactory(new PropertyValueFactory<>("user"));
+
+//            userTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Book, String>, ObservableValue<String>>() {
+//                @Override
+//                public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> book) {
+//                    try {
+//                        // Get the user_id of the user that borrowed the book from the borrowed books table
+//                        int userID = getUserIDFromBorrowedBooksTable(book.getValue().getBook_id());
+//                        // Get the username of the user from the user table using the user_id
+//                        String username = getUsernameFromUserTable(userID);
+//                        return new SimpleStringProperty(username);
+//                    } catch (SQLException e) {
+//                        Logger.getLogger(AdminBorrowedBooksController.class.getName()).log(Level.SEVERE, null, e);
+//                    }
+//                    return new SimpleStringProperty("");
+//                }
+//            });
+
             userTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Book, String>, ObservableValue<String>>() {
                 @Override
                 public ObservableValue<String> call(TableColumn.CellDataFeatures<Book, String> book) {
                     try {
                         // Get the user_id of the user that borrowed the book from the borrowed books table
-                        int userID = getUserIDFromBorrowedBooksTable(book.getValue().getBook_id());
+                        Statement statement1 = connectDB.createStatement();
+                        ResultSet resultSet = statement1.executeQuery("SELECT user_id FROM borrowedbooks WHERE book_id = " + book.getValue().getBook_id());
+                        int userID = 0;
+                        while (resultSet.next()) {
+                            userID = resultSet.getInt("user_id");
+                        }
+
                         // Get the username of the user from the user table using the user_id
-                        String username = getUsernameFromUserTable(userID);
+                        Statement statement2 = connectDB.createStatement();
+                        resultSet = statement2.executeQuery("SELECT user FROM users WHERE user_id = " + userID);
+                        String username = "";
+                        while (resultSet.next()) {
+                            username = resultSet.getString("user");
+                        }
+
                         return new SimpleStringProperty(username);
                     } catch (SQLException e) {
                         Logger.getLogger(AdminBorrowedBooksController.class.getName()).log(Level.SEVERE, null, e);
@@ -293,34 +393,6 @@ public class AdminBorrowedBooksController implements Initializable {
     public void setUserInformation(String user){
         User.username = user;
         label_user.setText("Hello, " + user);
-    }
-
-    private int getUserIDFromBorrowedBooksTable(int bookID) throws SQLException {
-        // Create a connection to the database
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectDB = connection.getDBConnection();
-        Statement statement = connectDB.createStatement();
-        // Execute a query to get the user_id from the borrowed books table
-        ResultSet resultSet = statement.executeQuery("SELECT user_id FROM borrowedbooks WHERE book_id = " + bookID);
-        int userID = 0;
-        while (resultSet.next()) {
-            userID = resultSet.getInt("user_id");
-        }
-        return userID;
-    }
-
-    private String getUsernameFromUserTable(int userID) throws SQLException {
-        // Create a connection to the database
-        DatabaseConnection connection = new DatabaseConnection();
-        Connection connectDB = connection.getDBConnection();
-        Statement statement = connectDB.createStatement();
-        // Execute a query to get the username from the user table
-        ResultSet resultSet = statement.executeQuery("SELECT user FROM users WHERE user_id = " + userID);
-        String username = "";
-        while (resultSet.next()) {
-            username = resultSet.getString("user");
-        }
-        return username;
     }
 
     public void clearBorrowedBooks() {

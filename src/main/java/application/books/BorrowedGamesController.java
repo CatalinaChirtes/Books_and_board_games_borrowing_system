@@ -69,16 +69,16 @@ public class BorrowedGamesController implements Initializable {
     private TableView<Game> borrowedGamesTableView;
 
     @FXML
-    private TableColumn<Book, Integer> gameIDTableColumn;
+    private TableColumn<Game, Integer> gameIDTableColumn;
 
     @FXML
-    private TableColumn<Book, String> gameTableColumn;
+    private TableColumn<Game, String> gameTableColumn;
 
     @FXML
-    private TableColumn<Book, String> playersTableColumn;
+    private TableColumn<Game, String> playersTableColumn;
 
     @FXML
-    private TableColumn<Book, String> statusTableColumn;
+    private TableColumn<Game, String> statusTableColumn;
 
     @FXML
     private TextField keywordTextField;
@@ -257,7 +257,7 @@ public class BorrowedGamesController implements Initializable {
             gameTableColumn.setCellValueFactory(new PropertyValueFactory<>("game"));
             playersTableColumn.setCellValueFactory(new PropertyValueFactory<>("players"));
 
-            // borrowed books
+            // borrowed games
 
             for (Game game : gameObservableList) {
                 if (game.getStatus().equalsIgnoreCase("borrowed")) {

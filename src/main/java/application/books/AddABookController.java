@@ -49,6 +49,18 @@ public class AddABookController implements Initializable {
     private Button switchToAddUser;
 
     @FXML
+    private Button switchToAvailableGames;
+
+    @FXML
+    private Button switchToBorrowedGames;
+
+    @FXML
+    private Button switchToAddAGame;
+
+    @FXML
+    private Button switchToRemoveAGame;
+
+    @FXML
     private Button button_logout;
 
     @FXML
@@ -201,6 +213,66 @@ public class AddABookController implements Initializable {
             public void handle(ActionEvent event) {
                 try {
                     root = FXMLLoader.load(getClass().getResource("addANewUser.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToAvailableGames.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("adminAvailableGames.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToBorrowedGames.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("adminBorrowedGames.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToAddAGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("addAGame.fxml"));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+
+        switchToRemoveAGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    root = FXMLLoader.load(getClass().getResource("removeAGame.fxml"));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }

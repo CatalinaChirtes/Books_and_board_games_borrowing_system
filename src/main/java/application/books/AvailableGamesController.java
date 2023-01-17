@@ -70,16 +70,16 @@ public class AvailableGamesController implements Initializable {
     private TableView<Game> availableGamesTableView;
 
     @FXML
-    private TableColumn<Book, Integer> gameIDTableColumn;
+    private TableColumn<Game, Integer> gameIDTableColumn;
 
     @FXML
-    private TableColumn<Book, String> gameTableColumn;
+    private TableColumn<Game, String> gameTableColumn;
 
     @FXML
-    private TableColumn<Book, String> playersTableColumn;
+    private TableColumn<Game, String> playersTableColumn;
 
     @FXML
-    private TableColumn<Book, String> statusTableColumn;
+    private TableColumn<Game, String> statusTableColumn;
 
     @FXML
     private TextField keywordTextField;
@@ -258,7 +258,7 @@ public class AvailableGamesController implements Initializable {
             gameTableColumn.setCellValueFactory(new PropertyValueFactory<>("game"));
             playersTableColumn.setCellValueFactory(new PropertyValueFactory<>("players"));
 
-            // available books
+            // available games
 
             for (Game game : gameObservableList) {
                 if (game.getStatus().equalsIgnoreCase("available")) {
