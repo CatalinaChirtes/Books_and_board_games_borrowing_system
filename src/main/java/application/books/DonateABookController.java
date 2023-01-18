@@ -310,15 +310,17 @@ public class DonateABookController implements Initializable {
                 {
                     ResultSet resultSet = statement.executeQuery(titleQuery);
                     if (resultSet.next()) {
-                        // Display error message
-                        titleError.setText("Error: Title already exists");
-                        return;
+
+                        throw new UserInputException.TitleAlreadyExistsException();
                     } else {
                         // Clear error message
                         titleError.setText("");
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
+                } catch (UserInputException.TitleAlreadyExistsException ex) {
+                    //System.out.println("Error caught.");
+                    titleError.setText(ex.getMessage());
                 }
 
                 // Check if author is empty
@@ -346,18 +348,20 @@ public class DonateABookController implements Initializable {
                     pages = Integer.parseInt(pagesInput.getText());
                     pagesError.setText("");
                 } catch (NumberFormatException e) {
-                    // Display error message
-                    pagesError.setText("Error: Pages must be a number");
-                    return;
+
+                    try {
+                        throw new UserInputException.PagesNotNumberException();
+                    } catch (UserInputException.PagesNotNumberException ex) {
+                        pagesError.setText(ex.getMessage());
+                    }
                 }
 
                 // Check if rating is a number with 2 decimals and within the range of 0 to 5
                 try {
                     rating = Float.parseFloat(ratingInput.getText());
                     if (rating < 1 || rating > 5) {
-                        // Display error message
-                        ratingError.setText("Error: Rating must be between 1 and 5");
-                        return;
+
+                        throw new UserInputException.InvalidRatingException();
                     }
                     // Convert int rating to float with 2 decimals
                     rating = (float) Math.round(rating * 100) / 100;
@@ -366,6 +370,8 @@ public class DonateABookController implements Initializable {
                     // Display error message
                     ratingError.setText("Error: Rating must be a number");
                     return;
+                } catch (UserInputException.InvalidRatingException ex) {
+                    ratingError.setText(ex.getMessage());
                 }
 
                 // Check if language is selected

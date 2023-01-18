@@ -1,5 +1,6 @@
 package application.books;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -247,6 +248,20 @@ public class AdminController implements Initializable {
             }
         });
 
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    loadTable();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
+    }
+
+    public void loadTable(){
         DatabaseConnection connection = new DatabaseConnection();
         Connection connectDB = connection.getDBConnection();
 
@@ -299,7 +314,14 @@ public class AdminController implements Initializable {
                     availableBooks.add(book);
                 }
             }
-            availableBooksTableView.setItems(availableBooks);
+//            availableBooksTableView.setItems(availableBooks);
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    availableBooksTableView.setItems(availableBooks);
+                }
+            });
 
 
             FilteredList<Book> filteredData = new FilteredList<>(availableBooks, b -> true);
@@ -331,7 +353,14 @@ public class AdminController implements Initializable {
 
             sortedData.comparatorProperty().bind(availableBooksTableView.comparatorProperty());
 
-            availableBooksTableView.setItems(sortedData);
+//            availableBooksTableView.setItems(sortedData);
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    availableBooksTableView.setItems(sortedData);
+                }
+            });
 
         } catch (SQLException e) {
             Logger.getLogger(AdminController.class.getName()).log(Level.SEVERE, null, e);
