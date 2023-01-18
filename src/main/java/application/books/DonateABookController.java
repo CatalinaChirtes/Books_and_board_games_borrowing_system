@@ -321,6 +321,7 @@ public class DonateABookController implements Initializable {
                 } catch (UserInputException.TitleAlreadyExistsException ex) {
                     //System.out.println("Error caught.");
                     titleError.setText(ex.getMessage());
+                    return;
                 }
 
                 // Check if author is empty
@@ -353,6 +354,7 @@ public class DonateABookController implements Initializable {
                         throw new UserInputException.PagesNotNumberException();
                     } catch (UserInputException.PagesNotNumberException ex) {
                         pagesError.setText(ex.getMessage());
+                        return;
                     }
                 }
 
@@ -372,6 +374,7 @@ public class DonateABookController implements Initializable {
                     return;
                 } catch (UserInputException.InvalidRatingException ex) {
                     ratingError.setText(ex.getMessage());
+                    return;
                 }
 
                 // Check if language is selected
